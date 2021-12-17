@@ -61,6 +61,7 @@ public partial class WeatherForecastEditForm : ComponentBase
     {
         this.NavManager!.NavigateTo("/weatherforecasts");
     }
+
     private void ExitWithoutSaving()
     {
         navigationLock?.SetLock(false);
@@ -72,6 +73,5 @@ public partial class WeatherForecastEditForm : ComponentBase
         if (editStateContext is not null)
             editStateContext.EditStateChanged -= OnEditStateChanged;
     }
-
 }
 

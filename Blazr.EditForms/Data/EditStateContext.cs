@@ -12,9 +12,8 @@ namespace Blazr.EditForms;
 /// Loads all the write fields from the EditContext Model into an EditFieldCollection
 /// and tracks all updates notified by the EditContext Field Changed Event
 /// </summary>
-public class EditStateContext
+public class EditStateContext : IDisposable
 {
-
     public bool IsDirty => EditFields.IsDirty;
 
     public event EventHandler<EditStateEventArgs>? EditStateChanged;
@@ -35,10 +34,12 @@ public class EditStateContext
     {
         this.EditContext = editContext;
         this.LoadEditState();
+        // Wire up FieldChanged to the EditContext OnFieldChanged event
+        this.EditContext.OnFieldChanged += this.FieldChanged;
     }
 
     private void LoadEditState()
-        =>  this.GetEditFields();
+        => this.GetEditFields();
 
     private void GetEditFields()
     {
@@ -57,6 +58,8 @@ public class EditStateContext
             }
         }
     }
+    private void FieldChanged(object? sender, FieldChangedEventArgs e)
+        => this.NotifyFieldChanged(e);
 
     /// <summary>
     /// Method that can be called to pass on a FieldChanged event
@@ -97,17 +100,12 @@ public class EditStateContext
             NotifyEditStateChanged();
     }
 
-    /// <summary>
-    /// Notification method to trigger a EditStateChanged event
-    /// </summary>
-    /// <param name="dirtyState">bool</param>
-    public void NotifyEditStateChanged(bool dirtyState)
-    {
-        EditStateChanged?.Invoke(this, EditStateEventArgs.NewArgs(dirtyState));
-    }
-
     private void NotifyEditStateChanged()
         => EditStateChanged?.Invoke(this, EditStateEventArgs.NewArgs(EditFields?.IsDirty ?? false));
 
+    public void Dispose()
+    {
+        if (this.EditContext is not null)
+            this.EditContext.OnFieldChanged += this.FieldChanged;
+    }
 }
-

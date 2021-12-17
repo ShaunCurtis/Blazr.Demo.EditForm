@@ -1,0 +1,34 @@
+﻿@namespace Blazr.Demo.EditForm.UI
+
+<UILoader State="this.LoadState">
+    <FormViewTitle>
+        <h2>Weather Forecast Editor</h2>
+    </FormViewTitle>
+    <EditForm EditContext="this.editContent">
+        <EditFormState EditStateContext="this.editStateContext"/>
+        <UIContainer Size=BootstrapSize.Fluid>
+            <UIFormRow>
+                <UIColumn Columns=12 MediumColumns=6>
+                    <FormEditControl Label="Date" ShowLabel="true" @bind-Value="this.viewService.EditModel.Date" ControlType="typeof(InputDate<DateTime>)" IsRequired="true" ShowValidation="true" HelperText="Enter the Forecast Date"></FormEditControl>
+                </UIColumn>
+                <UIColumn Columns=12 MediumColumns=6>
+                    <FormEditControl Label="Temperature &deg;C" ShowLabel="true" @bind-Value="this.viewService.EditModel.TemperatureC" ControlType="typeof(InputNumber<int>)" IsRequired="true" ShowValidation="true" HelperText="Enter the Temperature"></FormEditControl>
+                </UIColumn>
+            </UIFormRow>
+            <UIFormRow>
+                <UIColumn Columns=12>
+                    <FormEditControl Label="Summary" ShowLabel="true" @bind-Value="this.viewService.EditModel.Summary" IsRequired="true" ShowValidation="true" HelperText="Summarise the Weather"></FormEditControl>
+                </UIColumn>
+            </UIFormRow>
+        </UIContainer>
+        <UIContainer Size=BootstrapSize.Fluid>
+            <UIFormRow>
+                <UIColumn Columns=12 class="text-end">
+                    <UIButton class="btn-success" Disabled="!this.isDirty" ClickEvent="this.SaveRecord">Save</UIButton>
+                    <UIButton class="btn-dark" Show="!this.isDirty" ClickEvent="this.Exit">Exit</UIButton>
+                    <UIButton class="btn-danger" Show="this.isDirty" ClickEvent="this.ExitWithoutSaving">Exit Without Saving</UIButton>
+                </UIColumn>
+            </UIFormRow>
+        </UIContainer>
+    </EditForm>
+</UILoader>

@@ -1,0 +1,81 @@
+﻿@implements IDisposable
+@namespace Blazr.Demo.EditForm.UI
+
+@if (this.isLoading)
+{
+    <div class="m-2 p-2">Loading...</div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in this.listViewService!.Records!)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditRecord(forecast.Id)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteRecord(forecast.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <UIContainer Size=BootstrapSize.Fluid>
+        <UIFormRow>
+            <UIColumn Columns=12 class="text-end">
+                <UIButton class="btn-dark" ClickEvent="AddRecordAsync">Add Random Record</UIButton>
+            </UIColumn>
+        </UIFormRow>
+    </UIContainer>
+}
+
+@code {
+    [Inject] private WeatherForecastsViewService? listViewService { get; set; }
+
+    [Inject] private WeatherForecastViewService? recordViewService { get; set; }
+
+    [Inject] private NavigationManager? navigationManager { get; set; }
+
+    private bool isLoading => listViewService!.Records is null;
+
+    protected override void OnInitialized()
+        => this.listViewService!.ListChanged += this.OnListChanged;
+
+    private async Task DeleteRecord(Guid Id)
+        =>  await this.recordViewService!.DeleteRecordAsync(Id);
+
+    private Task EditRecord(Guid Id)
+    {
+        this.navigationManager!.NavigateTo($"/WeatherForecast/Edit/{Id}");
+        return Task.CompletedTask;
+    }
+
+    private async Task AddRecordAsync()
+        => await this.recordViewService!.AddRecordAsync(
+            new DcoWeatherForecast
+                {
+                    Date = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Summary = "Balmy",
+                    TemperatureC = 14
+                });
+
+    private void OnListChanged(object? sender, EventArgs e)
+        => this.InvokeAsync(this.StateHasChanged);
+
+    public void Dispose()
+        => this.listViewService!.ListChanged -= this.OnListChanged;
+}

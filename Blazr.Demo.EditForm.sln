@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Config", "Blazr.Demo.Editform\Blazr.Demo.Editform.Config\Blazr.Demo.EditForm.Config.csproj", "{3EAD1867-376B-4AF8-A67E-89F6101C6928}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Controllers", "Blazr.Demo.Editform\Blazr.Demo.Editform.Controllers\Blazr.Demo.EditForm.Controllers.csproj", "{0E2D8036-A0AB-4855-9C1B-207E1DE1CAD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Core", "Blazr.Demo.Editform\Blazr.Demo.Editform.Core\Blazr.Demo.EditForm.Core.csproj", "{23D5B46F-A119-4403-9A70-CC578650B5A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Data", "Blazr.Demo.Editform\Blazr.Demo.Editform.Data\Blazr.Demo.EditForm.Data.csproj", "{214E9DE7-A65B-4CD0-926F-91FD67E5EEF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.UI", "Blazr.Demo.Editform\Blazr.Demo.Editform.UI\Blazr.Demo.EditForm.UI.csproj", "{1B22A03F-1CB9-455D-8B63-2AA8A0125B8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Server.Web", "Blazr.Demo.Editform\Blazr.Demo.Editform.Server.Web\Blazr.Demo.EditForm.Server.Web.csproj", "{B074932D-C99B-49BC-ADF3-EEA155852CE2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.WASM", "Blazr.Demo.Editform\Blazr.Demo.Editform.WASM\Blazr.Demo.EditForm.WASM.csproj", "{E8B5FC05-A5C5-48A9-8ADD-2AB1116D6B2E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.WASM.Web", "Blazr.Demo.Editform\Blazr.Demo.Editform.WASM.Web\Blazr.Demo.EditForm.WASM.Web.csproj", "{65C849F9-8A3B-4804-BD38-965332191582}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Tests", "Blazr.Demo.Editform\Blazr.Demo.Editform.Tests\Blazr.Demo.EditForm.Tests.csproj", "{A01A6C58-93BB-4CFE-85EA-27E762AB5E16}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.NavigationLocker", "Blazr.NavigationLocker\Blazr.NavigationLocker.csproj", "{A341F18F-0D96-4C94-B76E-8E96DE9F38D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.EditForms", "Blazr.Editforms\Blazr.EditForms.csproj", "{730F2F57-2AF0-481E-8E79-D9FDC858364A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3EAD1867-376B-4AF8-A67E-89F6101C6928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EAD1867-376B-4AF8-A67E-89F6101C6928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EAD1867-376B-4AF8-A67E-89F6101C6928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EAD1867-376B-4AF8-A67E-89F6101C6928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E2D8036-A0AB-4855-9C1B-207E1DE1CAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E2D8036-A0AB-4855-9C1B-207E1DE1CAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E2D8036-A0AB-4855-9C1B-207E1DE1CAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E2D8036-A0AB-4855-9C1B-207E1DE1CAD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23D5B46F-A119-4403-9A70-CC578650B5A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23D5B46F-A119-4403-9A70-CC578650B5A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23D5B46F-A119-4403-9A70-CC578650B5A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23D5B46F-A119-4403-9A70-CC578650B5A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{214E9DE7-A65B-4CD0-926F-91FD67E5EEF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{214E9DE7-A65B-4CD0-926F-91FD67E5EEF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{214E9DE7-A65B-4CD0-926F-91FD67E5EEF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{214E9DE7-A65B-4CD0-926F-91FD67E5EEF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B22A03F-1CB9-455D-8B63-2AA8A0125B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B22A03F-1CB9-455D-8B63-2AA8A0125B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B22A03F-1CB9-455D-8B63-2AA8A0125B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B22A03F-1CB9-455D-8B63-2AA8A0125B8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B074932D-C99B-49BC-ADF3-EEA155852CE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B074932D-C99B-49BC-ADF3-EEA155852CE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B074932D-C99B-49BC-ADF3-EEA155852CE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B074932D-C99B-49BC-ADF3-EEA155852CE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8B5FC05-A5C5-48A9-8ADD-2AB1116D6B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8B5FC05-A5C5-48A9-8ADD-2AB1116D6B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8B5FC05-A5C5-48A9-8ADD-2AB1116D6B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8B5FC05-A5C5-48A9-8ADD-2AB1116D6B2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65C849F9-8A3B-4804-BD38-965332191582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65C849F9-8A3B-4804-BD38-965332191582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65C849F9-8A3B-4804-BD38-965332191582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65C849F9-8A3B-4804-BD38-965332191582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A01A6C58-93BB-4CFE-85EA-27E762AB5E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A01A6C58-93BB-4CFE-85EA-27E762AB5E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A01A6C58-93BB-4CFE-85EA-27E762AB5E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A01A6C58-93BB-4CFE-85EA-27E762AB5E16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A341F18F-0D96-4C94-B76E-8E96DE9F38D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A341F18F-0D96-4C94-B76E-8E96DE9F38D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A341F18F-0D96-4C94-B76E-8E96DE9F38D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A341F18F-0D96-4C94-B76E-8E96DE9F38D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{730F2F57-2AF0-481E-8E79-D9FDC858364A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{730F2F57-2AF0-481E-8E79-D9FDC858364A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{730F2F57-2AF0-481E-8E79-D9FDC858364A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{730F2F57-2AF0-481E-8E79-D9FDC858364A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {611D2E47-2FB6-49A0-8EE8-91E60E1D3113}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,7 @@
+﻿@page "/weatherforecast/edit/{Id:guid}"
+
+<WeatherForecastEditForm Id=this.Id></WeatherForecastEditForm>
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+}

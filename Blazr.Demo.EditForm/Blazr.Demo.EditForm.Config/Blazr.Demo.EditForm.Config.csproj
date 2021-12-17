@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Blazr.NavigationLocker\Blazr.NavigationLocker.csproj" />
+	  <ProjectReference Include="..\Blazr.Demo.Editform.Core\Blazr.Demo.EditForm.Core.csproj" />
+	  <ProjectReference Include="..\Blazr.Demo.Editform.Data\Blazr.Demo.EditForm.Data.csproj" />
+	  <ProjectReference Include="..\Blazr.Demo.Editform.UI\Blazr.Demo.EditForm.UI.csproj" />
+	</ItemGroup>
+
+</Project>

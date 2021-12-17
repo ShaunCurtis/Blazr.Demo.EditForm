@@ -1,0 +1,9 @@
+﻿global using Blazr.Demo.EditForm.Core;
+global using Blazr.Demo.EditForm.Data;
+global using Blazr.Demo.EditForm.UI;
+global using Bunit;
+global using Moq;
+global using System;
+global using System.Collections.Generic;
+global using System.Threading.Tasks;
+global using Xunit;

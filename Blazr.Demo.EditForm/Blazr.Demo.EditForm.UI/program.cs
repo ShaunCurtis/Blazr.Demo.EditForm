@@ -4,3 +4,4 @@ global using Microsoft.JSInterop;
 
 global using Blazr.Demo.EditForm.Core;
 global using Blazr.EditForms;
+global using Blazr.UI;

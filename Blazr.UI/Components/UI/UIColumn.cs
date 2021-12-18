@@ -5,7 +5,7 @@
 /// ============================================================
 
 
-namespace Blazr.EditForms;
+namespace Blazr.UI;
 
 public class UIColumn : UIComponent
 {

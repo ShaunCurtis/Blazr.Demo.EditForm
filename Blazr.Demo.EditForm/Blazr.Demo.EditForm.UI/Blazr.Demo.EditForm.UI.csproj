@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Blazr.Editforms\Blazr.EditForms.csproj" />
     <ProjectReference Include="..\..\Blazr.NavigationLocker\Blazr.NavigationLocker.csproj" />
+    <ProjectReference Include="..\..\Blazr.UI\Blazr.UI.csproj" />
     <ProjectReference Include="..\Blazr.Demo.Editform.Core\Blazr.Demo.EditForm.Core.csproj" />
   </ItemGroup>
 

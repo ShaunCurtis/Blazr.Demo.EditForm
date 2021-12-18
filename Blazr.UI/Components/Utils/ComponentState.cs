@@ -4,11 +4,13 @@
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
 
-namespace Blazr.EditForms;
+namespace Blazr.UI;
 
-    class UIRow : UIComponent
+    public enum ComponentState
     {
-        public UIRow()
-            => CssClasses.Add("row");
+        New,
+        Loading,
+        Loaded,
+        InError
     }
 

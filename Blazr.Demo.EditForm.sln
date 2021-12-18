@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.NavigationLocker", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.EditForms", "Blazr.Editforms\Blazr.EditForms.csproj", "{730F2F57-2AF0-481E-8E79-D9FDC858364A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazr.UI", "Blazr.UI\Blazr.UI.csproj", "{683981B1-F02F-4866-B0A7-B18CAA16F425}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{730F2F57-2AF0-481E-8E79-D9FDC858364A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{730F2F57-2AF0-481E-8E79-D9FDC858364A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{730F2F57-2AF0-481E-8E79-D9FDC858364A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{683981B1-F02F-4866-B0A7-B18CAA16F425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683981B1-F02F-4866-B0A7-B18CAA16F425}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683981B1-F02F-4866-B0A7-B18CAA16F425}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683981B1-F02F-4866-B0A7-B18CAA16F425}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

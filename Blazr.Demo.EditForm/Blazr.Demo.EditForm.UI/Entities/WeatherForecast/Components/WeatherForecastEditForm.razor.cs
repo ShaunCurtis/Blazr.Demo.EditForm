@@ -1,26 +1,17 @@
-﻿using Blazr.NavigationLocker;
+﻿/// ============================================================
+/// Author: Shaun Curtis, Cold Elm Coders
+/// License: Use And Donate
+/// If you use it, donate something to a charity somewhere
+/// ============================================================
+
 
 namespace Blazr.Demo.EditForm.UI;
 
-public partial class WeatherForecastEditForm : ComponentBase
+public partial class WeatherForecastEditForm : BaseEditForm, IDisposable
 {
-    private EditContext? editContent;
-
-    [Parameter] public Guid Id { get; set; } = GuidExtensions.Null;
-
-    [CascadingParameter] private NavigationLock? navigationLock { get; set; }
-
     [Inject] private WeatherForecastViewService? ViewService { get; set; }
 
-    [Inject] private NavigationManager? NavManager { get; set; }
-
-    public ComponentState LoadState { get; private set; } = ComponentState.New;
-
     private WeatherForecastViewService viewService => ViewService!;
-
-    private EditStateContext? editStateContext;
-
-    private bool isDirty => editStateContext!.IsDirty;
 
     protected async override Task OnInitializedAsync()
     {
@@ -30,15 +21,6 @@ public partial class WeatherForecastEditForm : ComponentBase
         editStateContext = new EditStateContext(editContent);
         editStateContext.EditStateChanged += OnEditStateChanged;
         this.LoadState = ComponentState.Loaded;
-    }
-
-    private void OnRecordChanged(object? sender, EventArgs e)
-        => this.InvokeAsync(StateHasChanged);
-
-    private void OnEditStateChanged(object? sender, EditStateEventArgs e)
-    {
-        navigationLock?.SetLock(e.IsDirty);
-        this.InvokeAsync(StateHasChanged);
     }
 
     private async Task SaveRecord()
@@ -57,16 +39,8 @@ public partial class WeatherForecastEditForm : ComponentBase
             TemperatureC = 14
         });
 
-    private void Exit()
-    {
-        this.NavManager!.NavigateTo("/weatherforecasts");
-    }
-
-    private void ExitWithoutSaving()
-    {
-        navigationLock?.SetLock(false);
-        this.Exit();
-    }
+    protected override void BaseExit()
+    => this.NavManager?.NavigateTo("/weatherforecast");
 
     public void Dispose()
     {
@@ -74,4 +48,3 @@ public partial class WeatherForecastEditForm : ComponentBase
             editStateContext.EditStateChanged -= OnEditStateChanged;
     }
 }
-

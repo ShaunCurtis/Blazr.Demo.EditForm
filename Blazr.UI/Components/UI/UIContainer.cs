@@ -5,7 +5,7 @@
 /// ============================================================
 
 
-namespace Blazr.EditForms;
+namespace Blazr.UI;
 
 public enum BootstrapSize { ExtraSmall, Small, Medium, Large, XLarge, XXLarge, Fluid }
 

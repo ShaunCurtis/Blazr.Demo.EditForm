@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,8 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Blazr.Editforms\Blazr.EditForms.csproj" />
+    <ProjectReference Include="..\..\Blazr.Core\Blazr.Core.csproj" />
     <ProjectReference Include="..\..\Blazr.NavigationLocker\Blazr.NavigationLocker.csproj" />
+    <ProjectReference Include="..\..\Blazr.Ui.Bootstrap\Blazr.UI.Bootstrap.csproj" />
     <ProjectReference Include="..\..\Blazr.UI\Blazr.UI.csproj" />
     <ProjectReference Include="..\Blazr.Demo.Editform.Core\Blazr.Demo.EditForm.Core.csproj" />
   </ItemGroup>

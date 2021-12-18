@@ -4,13 +4,11 @@
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
 
-namespace Blazr.UI;
+namespace Blazr.UI.Bootstrap;
 
-    public class UIFormRow : UIComponent
+    class UIRow : UIComponent
     {
-        public UIFormRow()
-        {
-            CssClasses.Add("row form-group");
-        }
+        public UIRow()
+            => CssClasses.Add("row");
     }
 

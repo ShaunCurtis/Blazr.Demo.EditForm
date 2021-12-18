@@ -6,7 +6,7 @@
 
 using Blazr.NavigationLocker;
 
-namespace Blazr.Demo.EditForm.UI;
+namespace Blazr.UI;
 
 public partial class BaseEditForm : ComponentBase
 {

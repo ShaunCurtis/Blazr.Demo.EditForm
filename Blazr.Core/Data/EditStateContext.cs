@@ -5,7 +5,7 @@
 /// ============================================================
 
 
-namespace Blazr.EditForms;
+namespace Blazr.Core;
 
 /// <summary>
 /// Context Class for managing Form Edit State

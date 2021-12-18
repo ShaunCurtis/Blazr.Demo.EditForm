@@ -5,7 +5,7 @@
 /// ============================================================
 
 
-namespace Blazr.UI;
+namespace Blazr.UI.Bootstrap;
 
 public class UIButton : UIComponent
 {

@@ -4,13 +4,13 @@
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
 
-namespace Blazr.EditForms;
+namespace Blazr.UI.Bootstrap;
 
-public class EditStateEventArgs : EventArgs
-{
-    public bool IsDirty { get; set; }
-
-    public static EditStateEventArgs NewArgs(bool dirtyState)
-        => new EditStateEventArgs { IsDirty = dirtyState };
-}
+    public class UIFormRow : UIComponent
+    {
+        public UIFormRow()
+        {
+            CssClasses.Add("row form-group");
+        }
+    }
 

@@ -5,7 +5,7 @@
 /// ============================================================
 
 
-namespace Blazr.UI;
+namespace Blazr.UI.Bootstrap;
 
 public enum BootstrapSize { ExtraSmall, Small, Medium, Large, XLarge, XXLarge, Fluid }
 

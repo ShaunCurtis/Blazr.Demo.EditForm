@@ -5,7 +5,7 @@
 /// ============================================================
 
 
-namespace Blazr.EditForms;
+namespace Blazr.Core;
 
 public class EditField
 {

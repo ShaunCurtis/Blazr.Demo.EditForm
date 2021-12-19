@@ -5,7 +5,7 @@
 /// ============================================================
 
 
-namespace Blazr.UI;
+namespace Blazr.UI.Bootstrap;
 
 public partial class FormViewTitle
 {

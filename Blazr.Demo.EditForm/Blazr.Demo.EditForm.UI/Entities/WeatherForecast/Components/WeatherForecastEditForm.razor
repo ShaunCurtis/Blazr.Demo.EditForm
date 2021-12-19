@@ -32,9 +32,9 @@
         <UIContainer Size=BootstrapSize.Fluid>
             <UIFormRow>
                 <UIColumn Columns=12 class="text-end">
-                    <UIButton class="btn-success" Disabled="!this.isDirty" ClickEvent="this.SaveRecord">Save</UIButton>
-                    <UIButton class="btn-dark" Show="!this.isDirty" ClickEvent="this.Exit">Exit</UIButton>
-                    <UIButton class="btn-danger" Show="this.isDirty" ClickEvent="this.ExitWithoutSaving">Exit Without Saving</UIButton>
+                    <UIButton class="btn-success" Disabled="!this.IsDirty" ClickEvent="this.SaveRecord">Save</UIButton>
+                    <UIButton class="btn-dark" Show="!this.IsDirty" ClickEvent="this.Exit">Exit</UIButton>
+                    <UIButton class="btn-danger" Show="this.IsDirty" ClickEvent="this.ExitWithoutSaving">Exit Without Saving</UIButton>
                 </UIColumn>
             </UIFormRow>
         </UIContainer>

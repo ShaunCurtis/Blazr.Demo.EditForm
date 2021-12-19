@@ -11,6 +11,12 @@ let idCounter = 0;
 let lastHistoryItemId = 0; //needed to detect back/forward, in popstate event handler
 
 window.blazr_setPageLock = function (lock) {
+    //if (lock) {
+    //    window.addEventListener('popstate', blazr_popStateListener, { capture: true });
+    //}
+    //else {
+    //    window.removeEventListener('popstate', blazr_popStateListener, { capture: true });
+    //}
     blazr_PreventNavigation = lock;
 }
 
@@ -28,6 +34,28 @@ window.addEventListener('beforeunload', e => {
         e.returnValue = 'There are unsaved changes'
     }
 });
+
+
+//let blazr_resetUrlRun = false;
+
+//window.blazr_popStateListener = function (e) {
+//    let lockNavigation = false;
+
+//    //popstate can be triggered twice, but we want to show confirm dialog only once
+//    lockNavigation = blazr_PreventNavigation && !blazr_resetUrlRun;
+
+//    if (lockNavigation) {
+//        //this will cancel Blazor navigation, but the url is already changed
+//        e.stopImmediatePropagation();
+//        e.preventDefault();
+//        e.returnValue = false;
+//    }
+
+//    if (blazr_resetUrlRun) {
+//        //Resets resetUrlRun on second run
+//        blazr_resetUrlRun = false;
+//    }
+//}
 
 
 window.addEventListener('load', () => {
@@ -68,6 +96,7 @@ window.addEventListener('load', () => {
             }
         }
     }
+
 
     window.addEventListener('popstate', popStateListener, { capture: true });
 

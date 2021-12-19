@@ -11,26 +11,26 @@ public partial class WeatherForecastEditForm : BaseEditForm, IDisposable
 {
     [Inject] private WeatherForecastViewService? ViewService { get; set; }
 
-    private WeatherForecastViewService viewService => ViewService!;
+    private WeatherForecastViewService viewService => this.ViewService!;
 
     protected async override Task OnInitializedAsync()
     {
-        this.LoadState = ComponentState.Loading;
-        await ViewService!.GetForecastAsync(Id);
-        editContent = new EditContext(this.ViewService.EditModel);
-        editStateContext = new EditStateContext(editContent);
-        editStateContext.EditStateChanged += OnEditStateChanged;
-        this.LoadState = ComponentState.Loaded;
+        base.LoadState = ComponentState.Loading;
+        await this.viewService.GetForecastAsync(Id);
+        base.editContent = new EditContext(this.viewService.EditModel);
+        base.editStateContext = new EditStateContext(base.editContent);
+        base.editStateContext.EditStateChanged += base.OnEditStateChanged;
+        base.LoadState = ComponentState.Loaded;
     }
 
     private async Task SaveRecord()
     {
-        await this.ViewService!.UpdateRecordAsync();
-        editStateContext?.NotifySaved();
+        await this.viewService.UpdateRecordAsync();
+        base.editStateContext?.NotifySaved();
     }
 
     private async Task AddRecord()
-    => await this.ViewService!.AddRecordAsync(
+    => await this.viewService.AddRecordAsync(
         new DcoWeatherForecast
         {
             Date = DateTime.Now,
@@ -44,7 +44,7 @@ public partial class WeatherForecastEditForm : BaseEditForm, IDisposable
 
     public void Dispose()
     {
-        if (editStateContext is not null)
-            editStateContext.EditStateChanged -= OnEditStateChanged;
+        if (base.editStateContext is not null)
+            base.editStateContext.EditStateChanged -= base.OnEditStateChanged;
     }
 }

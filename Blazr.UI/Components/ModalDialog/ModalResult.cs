@@ -17,7 +17,7 @@ public class ModalResult
 {
     public ModalResultType ResultType { get; private set; } = ModalResultType.NoSet;
 
-    public object Data { get; set; } = null;
+    public object? Data { get; set; } = null;
 
     public static ModalResult OK() => new ModalResult() { ResultType = ModalResultType.OK };
 

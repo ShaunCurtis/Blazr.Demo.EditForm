@@ -4,7 +4,6 @@
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
 
-using Blazr.NavigationLocker;
 
 namespace Blazr.UI;
 
@@ -14,7 +13,7 @@ public partial class BaseEditForm : ComponentBase
 
     [Parameter] public Guid Id { get; set; } = GuidExtensions.Null;
 
-    [Parameter] public EventCallback ExitAction { get; set; } 
+    [Parameter] public EventCallback ExitAction { get; set; }
 
     [CascadingParameter] protected NavigationLock? navigationLock { get; set; }
 
@@ -62,5 +61,5 @@ public partial class BaseEditForm : ComponentBase
     }
 
     protected virtual void BaseExit()
-        =>  this.NavManager?.NavigateTo("/");
+        => this.NavManager?.NavigateTo("/");
 }

@@ -21,7 +21,7 @@ namespace Blazr.Demo.EditForm.Controllers
             => await weatherForecastDataBroker.GetWeatherForecastsAsync();
 
         [Route("/api/weatherforecast/get")]
-        [HttpGet]
+        [HttpPost]
         public async Task<DcoWeatherForecast> GetForecastAsync([FromBody] Guid Id)
             => await weatherForecastDataBroker.GetForecastAsync(Id);
 

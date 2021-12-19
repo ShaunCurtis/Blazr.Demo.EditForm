@@ -20,7 +20,7 @@ public class ModalOptions : IEnumerable<KeyValuePair<string, object>>
     IEnumerator IEnumerable.GetEnumerator()
         => this.GetEnumerator();
 
-    public T Get<T>(string key)
+    public T? Get<T>(string key)
     {
         if (this.Parameters.ContainsKey(key))
         {
@@ -29,7 +29,7 @@ public class ModalOptions : IEnumerable<KeyValuePair<string, object>>
         return default;
     }
 
-    public bool TryGet<T>(string key, out T value)
+    public bool TryGet<T>(string key, out T? value)
     {
         value = default;
         if (this.Parameters.ContainsKey(key))

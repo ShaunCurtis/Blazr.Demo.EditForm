@@ -31,7 +31,7 @@ namespace Blazr.Template.Tests.ViewServices
 
             // assert
             Assert.IsType<List<DcoWeatherForecast>?>(weatherForecastsViewService.Records);
-            Assert.Equal(expectedCount, weatherForecastsViewService.Records!.Count);
+            Assert.Equal(expectedCount, weatherForecastsViewService.Records!.Count());
             Assert.IsType<List<DcoWeatherForecast>?>(eventSender);
             Assert.IsType<EventArgs>(eventargs);
             dataBrokerMock.Verify(item => item.GetWeatherForecastsAsync(), Times.Once);

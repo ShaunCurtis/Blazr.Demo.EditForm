@@ -29,7 +29,7 @@ namespace Blazr.Demo.EditForm.Data
         public async ValueTask<bool> UpdateForecastAsync(DcoWeatherForecast record)
             => await this.weatherForecastDataStore!.UpdateForecastAsync(record);
 
-        public async ValueTask<List<DcoWeatherForecast>> GetWeatherForecastsAsync()
+        public async ValueTask<IEnumerable<DcoWeatherForecast>> GetWeatherForecastsAsync()
             => await this.weatherForecastDataStore!.GetWeatherForecastsAsync();
     }
 }

@@ -15,7 +15,7 @@ public partial class BaseModalDialog : ComponentBase, IModalDialog
 
     protected RenderFragment? _Content { get; set; }
 
-    protected string Width => this.Options.TryGet<string>(ModalOptions.__Width, out string value) ? $"width:{value}" : string.Empty;
+    protected string Width => this.Options.TryGet<string>(ModalOptions.__Width, out string? value) ? $"width:{value}" : string.Empty;
 
     protected bool ExitOnBackGroundClick => this.Options.TryGet<bool>(ModalOptions.__ExitOnBackGroundClick, out bool value) ? value : false;
 

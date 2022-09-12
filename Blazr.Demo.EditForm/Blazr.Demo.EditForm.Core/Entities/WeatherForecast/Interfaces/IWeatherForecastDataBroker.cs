@@ -19,6 +19,6 @@ namespace Blazr.Demo.EditForm.Core
 
         public ValueTask<bool> DeleteForecastAsync(Guid Id);
 
-        public ValueTask<List<DcoWeatherForecast>> GetWeatherForecastsAsync();
+        public ValueTask<IEnumerable<DcoWeatherForecast>> GetWeatherForecastsAsync();
     }
 }

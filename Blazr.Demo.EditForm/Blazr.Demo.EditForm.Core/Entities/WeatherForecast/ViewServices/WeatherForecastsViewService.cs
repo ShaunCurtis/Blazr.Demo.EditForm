@@ -10,7 +10,7 @@ namespace Blazr.Demo.EditForm.Core
     {
         private readonly IWeatherForecastDataBroker? weatherForecastDataBroker;
 
-        public List<DcoWeatherForecast>? Records { get; private set; }
+        public IEnumerable<DcoWeatherForecast>? Records { get; private set; }
 
         public WeatherForecastsViewService(IWeatherForecastDataBroker weatherForecastDataBroker)
             => this.weatherForecastDataBroker = weatherForecastDataBroker!;

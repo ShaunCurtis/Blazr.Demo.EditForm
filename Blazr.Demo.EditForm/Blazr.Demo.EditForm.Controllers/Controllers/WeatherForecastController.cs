@@ -17,7 +17,7 @@ namespace Blazr.Demo.EditForm.Controllers
 
         [Route("/api/weatherforecast/list")]
         [HttpGet]
-        public async Task<List<DcoWeatherForecast>> GetForecastsAsync()
+        public async Task<IEnumerable<DcoWeatherForecast>> GetForecastsAsync()
             => await weatherForecastDataBroker.GetWeatherForecastsAsync();
 
         [Route("/api/weatherforecast/get")]

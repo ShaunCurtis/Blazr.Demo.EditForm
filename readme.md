@@ -2,9 +2,9 @@
 
 This Repo contains the demo solution for Form locking and Navigation Locking.
 
-There's a log running issue on official aspnetcore github site about the need for this:
+There's a log running issue on the official aspnetcore github site which covers the subject.
 
-[[Blazor] Add support for confirming navigations #40149](https://github.com/dotnet/aspnetcore/issues/40149#issuecomment-1129780748)
+[[Blazor] Add support for confirming navigations #40149](https://github.com/dotnet/aspnetcore/issues/40149)
 
 The detailed articles can be found here:
 

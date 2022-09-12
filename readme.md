@@ -9,3 +9,6 @@ The detailed articles can be found here:
 The demo version of this code can be seen here:
 
 [Blazr.Demo Azure Site](https://blazr-demo.azurewebsites.net/)
+
+>Update
+> 12-Sep-2022 - Added Support for Hot Reload

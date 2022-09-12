@@ -2,7 +2,6 @@
 //  This is direct copy with the changes highlighted
 //  These are:
 //   1. Change in NavigationManager
-//   2. Disabling of Hotloading because the assemblies are not available
 //   ==============================================================================
 
 #nullable disable warnings
@@ -98,11 +97,7 @@ namespace Blazr.NavigationLocker.Routing
             _locationAbsolute = NavigationManager.Uri;
             NavigationManager.LocationChanged += OnLocationChanged;
 
-            // <<<====================== THIS IS A CHANGE ========================>>>
-            //if (HotReloadManager.Default.MetadataUpdateSupported)
-            //{
-            //    HotReloadManager.Default.OnDeltaApplied += ClearRouteCaches;
-            //}
+            HotReloadManager.OnDeltaApplied += ClearRouteCaches;
         }
 
         /// <inheritdoc />
@@ -144,11 +139,7 @@ namespace Blazr.NavigationLocker.Routing
         {
             NavigationManager.LocationChanged -= OnLocationChanged;
 
-            // <<<====================== THIS IS A CHANGE ========================>>>
-            //if (HotReloadManager.Default.MetadataUpdateSupported)
-            //{
-            //    HotReloadManager.Default.OnDeltaApplied -= ClearRouteCaches;
-            //}
+            HotReloadManager.OnDeltaApplied -= ClearRouteCaches;
         }
 
         private static string StringUntilAny(string str, char[] chars)

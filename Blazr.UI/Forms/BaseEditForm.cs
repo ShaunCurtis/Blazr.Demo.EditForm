@@ -15,7 +15,7 @@ public partial class BaseEditForm : ComponentBase
 
     [Parameter] public EventCallback ExitAction { get; set; }
 
-    [CascadingParameter] protected NavigationLock? navigationLock { get; set; }
+    [CascadingParameter] protected BlazrNavigationLock? navigationLock { get; set; }
 
     [CascadingParameter] public IModalDialog? Modal { get; set; }
 

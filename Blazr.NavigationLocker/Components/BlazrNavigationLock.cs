@@ -7,7 +7,7 @@
 
 namespace Blazr.NavigationLocker;
 
-public class NavigationLock : ComponentBase, IDisposable
+public class BlazrNavigationLock : ComponentBase, IDisposable
 {
     [Inject] private IJSRuntime? _js { get; set; }
 
@@ -41,7 +41,7 @@ public class NavigationLock : ComponentBase, IDisposable
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenComponent<CascadingValue<NavigationLock>>(0);
+        builder.OpenComponent<CascadingValue<BlazrNavigationLock>>(0);
         builder.AddAttribute(1, "Value", this);
         builder.AddAttribute(2, "ChildContent", this.ChildContent);
         builder.CloseComponent();

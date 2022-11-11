@@ -14,7 +14,8 @@ namespace Blazr.Demo.EditForm.Config
             services.AddSingleton<IWeatherForecastDataBroker, WeatherForecastServerDataBroker>();
             services.AddScoped<WeatherForecastsViewService>();
             services.AddScoped<WeatherForecastViewService>();
-            services.AddBlazrNavigationLockerServerServices();
+            //TODO - No longer needed
+            //services.AddBlazrNavigationLockerServerServices();
 
         }
 

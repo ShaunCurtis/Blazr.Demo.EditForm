@@ -7,7 +7,7 @@
 
 namespace Blazr.Demo.EditForm.UI;
 
-public partial class WeatherForecastEditForm : BaseEditForm, IDisposable
+public partial class WeatherForecastEditForm : BaseEditForm
 {
     [Inject] private WeatherForecastViewService? ViewService { get; set; }
 
@@ -19,7 +19,6 @@ public partial class WeatherForecastEditForm : BaseEditForm, IDisposable
         await this.viewService.GetForecastAsync(Id);
         base.editContent = new EditContext(this.viewService.EditModel);
         base.editStateContext = new EditStateContext(base.editContent);
-        base.editStateContext.EditStateChanged += base.OnEditStateChanged;
         base.LoadState = ComponentState.Loaded;
     }
 
@@ -42,9 +41,4 @@ public partial class WeatherForecastEditForm : BaseEditForm, IDisposable
     protected override void BaseExit()
     => this.NavManager?.NavigateTo("/weatherforecast");
 
-    public void Dispose()
-    {
-        if (base.editStateContext is not null)
-            base.editStateContext.EditStateChanged -= base.OnEditStateChanged;
-    }
 }

@@ -1,25 +1,27 @@
-﻿/// ============================================================
+﻿using Microsoft.JSInterop;
+/// ============================================================
 /// Author: Shaun Curtis, Cold Elm Coders
 /// License: Use And Donate
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
-
-
 namespace Blazr.UI;
 
-public partial class BaseEditForm : ComponentBase
+public partial class BaseEditForm : ComponentBase, IDisposable
 {
+    private bool _isInitialized;
+    private IDisposable? registration;
     protected EditContext? editContent;
+    protected bool AllowNavigationOverride;
 
     [Parameter] public Guid Id { get; set; } = GuidExtensions.Null;
 
     [Parameter] public EventCallback ExitAction { get; set; }
 
-    [CascadingParameter] protected BlazrNavigationLock? navigationLock { get; set; }
-
     [CascadingParameter] public IModalDialog? Modal { get; set; }
 
-    [Inject] protected NavigationManager? NavManager { get; set; }
+    [Inject] protected NavigationManager NavManager { get; set; } = default!;
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; } = default!;
 
     public ComponentState LoadState { get; protected set; } = ComponentState.New;
 
@@ -29,13 +31,34 @@ public partial class BaseEditForm : ComponentBase
 
     protected bool IsDirty => editStateContext!.IsDirty;
 
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        parameters.SetParameterProperties(this);
+        if (!_isInitialized)
+            registration = NavManager.RegisterLocationChangingHandler(OnLocationChanging);
+        return base.SetParametersAsync(ParameterView.Empty);
+    }
+
     protected void OnRecordChanged(object? sender, EventArgs e)
         => this.InvokeAsync(StateHasChanged);
 
-    protected void OnEditStateChanged(object? sender, EditStateEventArgs e)
+    protected ValueTask OnLocationChanging(LocationChangingContext changingContext)
     {
-        navigationLock?.SetLock(e.IsDirty);
-        this.InvokeAsync(StateHasChanged);
+        if (!this.AllowNavigationOverride || this.IsDirty)
+            changingContext.PreventNavigation();
+
+        return ValueTask.CompletedTask;
+    }
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        string message = "This form has unsaved data. Are you sure you want to exit?";
+        var isConfirmed = await JSRuntime.InvokeAsync<bool>("confirm", message);
+
+        if (!isConfirmed)
+        {
+            context.PreventNavigation();
+        }
     }
 
     protected async void Exit()
@@ -43,7 +66,7 @@ public partial class BaseEditForm : ComponentBase
 
     protected async void ExitWithoutSaving()
     {
-        navigationLock?.SetLock(false);
+        this.AllowNavigationOverride = true;
         await DoExit();
     }
 
@@ -62,4 +85,7 @@ public partial class BaseEditForm : ComponentBase
 
     protected virtual void BaseExit()
         => this.NavManager?.NavigateTo("/");
+
+    public void Dispose()
+        => registration?.Dispose();
 }

@@ -1,0 +1,8 @@
+﻿@page "/"
+@namespace Blazr.App.Server.Web.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+<component type="typeof(Blazr.App.UI.App)" render-mode="ServerPrerendered" />

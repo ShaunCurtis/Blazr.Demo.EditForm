@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\AppLibraries\Blazr.App.Controllers\Blazr.App.Controllers.csproj" />
+		<ProjectReference Include="..\Blazr.App.Config\Blazr.App.Config.csproj" />
+		<ProjectReference Include="..\..\AppLibraries\Blazr.App.UI\Blazr.App.UI.csproj" />
+		<ProjectReference Include="..\Blazr.App.WASM\Blazr.App.WASM.csproj" />
+	</ItemGroup>
+
+</Project>

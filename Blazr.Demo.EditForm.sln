@@ -3,36 +3,44 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Config", "Blazr.Demo.Editform\Blazr.Demo.Editform.Config\Blazr.Demo.EditForm.Config.csproj", "{3EAD1867-376B-4AF8-A67E-89F6101C6928}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.App.Controllers", "AppLibraries\Blazr.App.Controllers\Blazr.App.Controllers.csproj", "{0E2D8036-A0AB-4855-9C1B-207E1DE1CAD2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Controllers", "Blazr.Demo.Editform\Blazr.Demo.Editform.Controllers\Blazr.Demo.EditForm.Controllers.csproj", "{0E2D8036-A0AB-4855-9C1B-207E1DE1CAD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.App.Core", "AppLibraries\Blazr.App.Core\Blazr.App.Core.csproj", "{23D5B46F-A119-4403-9A70-CC578650B5A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Core", "Blazr.Demo.Editform\Blazr.Demo.Editform.Core\Blazr.Demo.EditForm.Core.csproj", "{23D5B46F-A119-4403-9A70-CC578650B5A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.App.Data", "AppLibraries\Blazr.App.Data\Blazr.App.Data.csproj", "{214E9DE7-A65B-4CD0-926F-91FD67E5EEF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Data", "Blazr.Demo.Editform\Blazr.Demo.Editform.Data\Blazr.Demo.EditForm.Data.csproj", "{214E9DE7-A65B-4CD0-926F-91FD67E5EEF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.App.UI", "AppLibraries\Blazr.App.UI\Blazr.App.UI.csproj", "{1B22A03F-1CB9-455D-8B63-2AA8A0125B8D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.UI", "Blazr.Demo.Editform\Blazr.Demo.Editform.UI\Blazr.Demo.EditForm.UI.csproj", "{1B22A03F-1CB9-455D-8B63-2AA8A0125B8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.App.Server.Web", "Applications\Blazr.App.Server.Web\Blazr.App.Server.Web.csproj", "{B074932D-C99B-49BC-ADF3-EEA155852CE2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Server.Web", "Blazr.Demo.Editform\Blazr.Demo.Editform.Server.Web\Blazr.Demo.EditForm.Server.Web.csproj", "{B074932D-C99B-49BC-ADF3-EEA155852CE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.App.WASM", "Applications\Blazr.App.WASM\Blazr.App.WASM.csproj", "{E8B5FC05-A5C5-48A9-8ADD-2AB1116D6B2E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.WASM", "Blazr.Demo.Editform\Blazr.Demo.Editform.WASM\Blazr.Demo.EditForm.WASM.csproj", "{E8B5FC05-A5C5-48A9-8ADD-2AB1116D6B2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.App.WASM.Web", "Applications\Blazr.App.WASM.Web\Blazr.App.WASM.Web.csproj", "{65C849F9-8A3B-4804-BD38-965332191582}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.WASM.Web", "Blazr.Demo.Editform\Blazr.Demo.Editform.WASM.Web\Blazr.Demo.EditForm.WASM.Web.csproj", "{65C849F9-8A3B-4804-BD38-965332191582}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.App.Tests", "Tests\Blazr.App.Tests\Blazr.App.Tests.csproj", "{A01A6C58-93BB-4CFE-85EA-27E762AB5E16}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Demo.EditForm.Tests", "Blazr.Demo.Editform\Blazr.Demo.Editform.Tests\Blazr.Demo.EditForm.Tests.csproj", "{A01A6C58-93BB-4CFE-85EA-27E762AB5E16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.NavigationLocker", "Libraries\Blazr.NavigationLocker\Blazr.NavigationLocker.csproj", "{A341F18F-0D96-4C94-B76E-8E96DE9F38D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.NavigationLocker", "Blazr.NavigationLocker\Blazr.NavigationLocker.csproj", "{A341F18F-0D96-4C94-B76E-8E96DE9F38D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.UI", "Libraries\Blazr.UI\Blazr.UI.csproj", "{683981B1-F02F-4866-B0A7-B18CAA16F425}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.UI", "Blazr.UI\Blazr.UI.csproj", "{683981B1-F02F-4866-B0A7-B18CAA16F425}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Core", "Blazr.Core\Blazr.Core.csproj", "{0A4B6ADB-F384-4998-89E2-B67EC6F440DB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.UI.Bootstrap", "Blazr.Ui.Bootstrap\Blazr.UI.Bootstrap.csproj", "{DBDA7871-E0E1-4D3A-B98F-59F48A4C95A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.Core", "Libraries\Blazr.Core\Blazr.Core.csproj", "{0A4B6ADB-F384-4998-89E2-B67EC6F440DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F0083E31-0152-4435-ADA8-F77D579051EA}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppLibraries", "AppLibraries", "{44AE2895-3CF7-4B16-9366-4FDBAFE2498E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{61BDAEF4-241B-4770-B529-70E81EA1DC5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{85CF1824-CCE2-4C31-9BEF-445C9BA58991}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{1796170C-A972-4D75-B3DF-49403255BC3C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.App.Config", "Applications\Blazr.App.Config\Blazr.App.Config.csproj", "{2C3AF782-B921-42EA-8660-71B2886FA22B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.UI.Bootstrap", "Libraries\Blazr.UI.Bootstrap\Blazr.UI.Bootstrap.csproj", "{251219DE-591C-4CD4-9AC9-3A811697AF6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +48,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3EAD1867-376B-4AF8-A67E-89F6101C6928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3EAD1867-376B-4AF8-A67E-89F6101C6928}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3EAD1867-376B-4AF8-A67E-89F6101C6928}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3EAD1867-376B-4AF8-A67E-89F6101C6928}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E2D8036-A0AB-4855-9C1B-207E1DE1CAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E2D8036-A0AB-4855-9C1B-207E1DE1CAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E2D8036-A0AB-4855-9C1B-207E1DE1CAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -88,13 +92,32 @@ Global
 		{0A4B6ADB-F384-4998-89E2-B67EC6F440DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A4B6ADB-F384-4998-89E2-B67EC6F440DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A4B6ADB-F384-4998-89E2-B67EC6F440DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DBDA7871-E0E1-4D3A-B98F-59F48A4C95A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBDA7871-E0E1-4D3A-B98F-59F48A4C95A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBDA7871-E0E1-4D3A-B98F-59F48A4C95A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBDA7871-E0E1-4D3A-B98F-59F48A4C95A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C3AF782-B921-42EA-8660-71B2886FA22B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C3AF782-B921-42EA-8660-71B2886FA22B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C3AF782-B921-42EA-8660-71B2886FA22B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C3AF782-B921-42EA-8660-71B2886FA22B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{251219DE-591C-4CD4-9AC9-3A811697AF6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{251219DE-591C-4CD4-9AC9-3A811697AF6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{251219DE-591C-4CD4-9AC9-3A811697AF6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{251219DE-591C-4CD4-9AC9-3A811697AF6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E2D8036-A0AB-4855-9C1B-207E1DE1CAD2} = {44AE2895-3CF7-4B16-9366-4FDBAFE2498E}
+		{23D5B46F-A119-4403-9A70-CC578650B5A6} = {44AE2895-3CF7-4B16-9366-4FDBAFE2498E}
+		{214E9DE7-A65B-4CD0-926F-91FD67E5EEF7} = {44AE2895-3CF7-4B16-9366-4FDBAFE2498E}
+		{1B22A03F-1CB9-455D-8B63-2AA8A0125B8D} = {44AE2895-3CF7-4B16-9366-4FDBAFE2498E}
+		{B074932D-C99B-49BC-ADF3-EEA155852CE2} = {61BDAEF4-241B-4770-B529-70E81EA1DC5C}
+		{E8B5FC05-A5C5-48A9-8ADD-2AB1116D6B2E} = {61BDAEF4-241B-4770-B529-70E81EA1DC5C}
+		{65C849F9-8A3B-4804-BD38-965332191582} = {61BDAEF4-241B-4770-B529-70E81EA1DC5C}
+		{A01A6C58-93BB-4CFE-85EA-27E762AB5E16} = {85CF1824-CCE2-4C31-9BEF-445C9BA58991}
+		{A341F18F-0D96-4C94-B76E-8E96DE9F38D0} = {1796170C-A972-4D75-B3DF-49403255BC3C}
+		{683981B1-F02F-4866-B0A7-B18CAA16F425} = {1796170C-A972-4D75-B3DF-49403255BC3C}
+		{0A4B6ADB-F384-4998-89E2-B67EC6F440DB} = {1796170C-A972-4D75-B3DF-49403255BC3C}
+		{2C3AF782-B921-42EA-8660-71B2886FA22B} = {61BDAEF4-241B-4770-B529-70E81EA1DC5C}
+		{251219DE-591C-4CD4-9AC9-3A811697AF6E} = {1796170C-A972-4D75-B3DF-49403255BC3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {611D2E47-2FB6-49A0-8EE8-91E60E1D3113}

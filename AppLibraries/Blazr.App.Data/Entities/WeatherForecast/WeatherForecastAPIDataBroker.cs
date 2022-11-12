@@ -17,16 +17,16 @@ public class WeatherForecastAPIDataBroker : IWeatherForecastDataBroker
     public WeatherForecastAPIDataBroker(HttpClient httpClient)
         => this.httpClient = httpClient;
 
-    public async ValueTask<bool> AddForecastAsync(DcoWeatherForecast record)
+    public async ValueTask<bool> AddForecastAsync(DroWeatherForecast record)
     {
-        var response = await this.httpClient.PostAsJsonAsync<DcoWeatherForecast>($"/api/weatherforecast/add", record);
+        var response = await this.httpClient.PostAsJsonAsync<DroWeatherForecast>($"/api/weatherforecast/add", record);
         var result = await response.Content.ReadFromJsonAsync<bool>();
         return result;
     }
 
-    public async ValueTask<bool> UpdateForecastAsync(DcoWeatherForecast record)
+    public async ValueTask<bool> UpdateForecastAsync(DroWeatherForecast record)
     {
-        var response = await this.httpClient.PostAsJsonAsync<DcoWeatherForecast>($"/api/weatherforecast/update", record);
+        var response = await this.httpClient.PostAsJsonAsync<DroWeatherForecast>($"/api/weatherforecast/update", record);
         var result = await response.Content.ReadFromJsonAsync<bool>();
         return result;
     }
@@ -38,16 +38,16 @@ public class WeatherForecastAPIDataBroker : IWeatherForecastDataBroker
         return result;
     }
 
-    public async ValueTask<DcoWeatherForecast> GetForecastAsync(Guid Id)
+    public async ValueTask<DroWeatherForecast> GetForecastAsync(Guid Id)
     {
         var response = await this.httpClient.PostAsJsonAsync<Guid>($"/api/weatherforecast/get", Id);
-        var result = await response.Content.ReadFromJsonAsync<DcoWeatherForecast>();
-        return result ?? new DcoWeatherForecast();
+        var result = await response.Content.ReadFromJsonAsync<DroWeatherForecast>();
+        return result ?? new DroWeatherForecast();
     }
 
-    public async ValueTask<IEnumerable<DcoWeatherForecast>> GetWeatherForecastsAsync()
+    public async ValueTask<IEnumerable<DroWeatherForecast>> GetWeatherForecastsAsync()
     {
-        var list = await this.httpClient.GetFromJsonAsync<List<DcoWeatherForecast>>($"/api/weatherforecast/list");
-        return list ?? Enumerable.Empty<DcoWeatherForecast>();
+        var list = await this.httpClient.GetFromJsonAsync<List<DroWeatherForecast>>($"/api/weatherforecast/list");
+        return list ?? Enumerable.Empty<DroWeatherForecast>();
     }
 }

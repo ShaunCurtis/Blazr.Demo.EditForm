@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Blazr.Core\Blazr.Core.csproj" />
+  </ItemGroup>
+
 </Project>

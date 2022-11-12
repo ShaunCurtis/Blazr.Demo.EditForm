@@ -6,7 +6,7 @@
 
 namespace Blazr.UI;
 
-public abstract class BaseEditForm : ComponentBase, IDisposable
+public abstract class Base_EditForm : ComponentBase, IDisposable
 {
     [Parameter] public Guid Id { get; set; } = GuidExtensions.Null;
     [Parameter] public EventCallback ExitAction { get; set; }
@@ -18,27 +18,32 @@ public abstract class BaseEditForm : ComponentBase, IDisposable
     private bool _isInitialized;
     private IDisposable? registration;
 
-    protected EditContext? editContent;
     protected bool NavigateRegardless;
-    protected EditStateContext? editStateContext;
+    protected IEditContext? editRecordContext;
 
     protected bool IsModal => this.Modal != null;
-    protected bool IsDirty => editStateContext!.IsDirty;
+    protected bool IsDirty => editRecordContext?.IsDirty ?? false;
 
     public ComponentState LoadState { get; protected set; } = ComponentState.New;
 
-    public override Task SetParametersAsync(ParameterView parameters)
+    public async override Task SetParametersAsync(ParameterView parameters)
     {
-        parameters.SetParameterProperties(this);
+        await base.SetParametersAsync(ParameterView.Empty);
         if (!_isInitialized)
+        {
             registration = NavManager.RegisterLocationChangingHandler(OnLocationChanging);
+            if (editRecordContext is not null)
+                editRecordContext.EditStateUpdated += this.OnStateChanged;
 
-        _isInitialized = true;
-        return base.SetParametersAsync(ParameterView.Empty);
+            _isInitialized = true;
+        }
     }
 
-    protected void OnRecordChanged(object? sender, EventArgs e)
+    protected void OnStateChanged(object? sender, bool state)
         => this.InvokeAsync(StateHasChanged);
+
+    //protected void OnRecordChanged(object? sender, EventArgs e)
+    //    => this.InvokeAsync(StateHasChanged);
 
     protected ValueTask OnLocationChanging(LocationChangingContext changingContext)
     {

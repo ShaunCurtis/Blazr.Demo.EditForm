@@ -10,7 +10,7 @@ public class DeoWeatherForecast
 {
     public Guid Id { get; set; } = GuidExtensions.Null;
 
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
 
     public int TemperatureC { get; set; }
 
@@ -20,7 +20,7 @@ public class DeoWeatherForecast
 
     public bool IsNull => Id == GuidExtensions.Null;
 
-    public void Populate(DcoWeatherForecast record)
+    public void Populate(DroWeatherForecast record)
     {
         this.Id = record.Id;
         this.Date = record.Date;
@@ -28,8 +28,8 @@ public class DeoWeatherForecast
         this.TemperatureC = record.TemperatureC;
     }
 
-    public DcoWeatherForecast ToDco =>
-        new DcoWeatherForecast() {
+    public DroWeatherForecast ToDco =>
+        new DroWeatherForecast() {
             Id = this.Id,
             Date = this.Date,
             Summary = this.Summary,

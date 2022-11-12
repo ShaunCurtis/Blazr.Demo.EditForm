@@ -73,26 +73,28 @@ public class FormEditControl<TValue> : ComponentBase
 
     protected override void OnInitialized()
     {
-        if (CurrentEditContext is null)
-            throw new InvalidOperationException($"No Cascading Edit Context Found!");
+        // TODO - is ok? 
+        //if (CurrentEditContext is null)
+        //    throw new InvalidOperationException($"No Cascading Edit Context Found!");
 
         if (ValueExpression is null)
             throw new InvalidOperationException($"No ValueExpression defined for the Control!  Define a Bind-Value.");
 
         if (!ValueChanged.HasDelegate)
             throw new InvalidOperationException($"No ValueChanged defined for the Control! Define a Bind-Value.");
-
-        CurrentEditContext.OnFieldChanged += FieldChanged;
-        CurrentEditContext.OnValidationStateChanged += ValidationStateChanged;
-        _messageStore = new ValidationMessageStore(this.CurrentEditContext);
-        _fieldIdentifier = FieldIdentifier.Create(ValueExpression);
-        if (_messageStore is null)
-            throw new InvalidOperationException($"Cannot set the Validation Message Store!");
-
-        var messages = CurrentEditContext.GetValidationMessages(_fieldIdentifier).ToList();
-        var showHelpText = (messages.Count == 0) && this.IsRequired && this.Value is null;
-        if (showHelpText && !string.IsNullOrWhiteSpace(this.HelperText))
-            _messageStore.Add(_fieldIdentifier, this.HelperText);
+        if (CurrentEditContext is not null)
+        {
+            CurrentEditContext.OnFieldChanged += FieldChanged;
+            CurrentEditContext.OnValidationStateChanged += ValidationStateChanged;
+            _fieldIdentifier = FieldIdentifier.Create(ValueExpression);
+            _messageStore = new ValidationMessageStore(this.CurrentEditContext);
+            if (_messageStore is null)
+                throw new InvalidOperationException($"Cannot set the Validation Message Store!");
+            var messages = CurrentEditContext.GetValidationMessages(_fieldIdentifier).ToList();
+            var showHelpText = (messages.Count == 0) && this.IsRequired && this.Value is null;
+            if (showHelpText && !string.IsNullOrWhiteSpace(this.HelperText))
+                _messageStore.Add(_fieldIdentifier, this.HelperText);
+        }
     }
 
     protected void ValidationStateChanged(object? sender, ValidationStateChangedEventArgs e)
@@ -117,9 +119,12 @@ public class FormEditControl<TValue> : ComponentBase
             if (this.IsRequired)
             {
                 this.IsValid = false;
-                var messages = CurrentEditContext.GetValidationMessages(_fieldIdentifier).ToList();
-                if (messages is null || messages.Count == 0)
-                    this.IsValid = true;
+                if (CurrentEditContext is not null)
+                {
+                    var messages = CurrentEditContext.GetValidationMessages(_fieldIdentifier).ToList();
+                    if (messages is null || messages.Count == 0)
+                        this.IsValid = true;
+                }
             }
         }
     }

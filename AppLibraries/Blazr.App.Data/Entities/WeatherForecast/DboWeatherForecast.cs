@@ -10,22 +10,22 @@ internal record DboWeatherForecast
 {
     public Guid Id { get; init; }
 
-    public DateTime Date { get; init; }
+    public DateOnly Date { get; init; }
 
     public int TemperatureC { get; init; }
 
     public string? Summary { get; init; }
 
-    public DcoWeatherForecast ToDto()
-        => new DcoWeatherForecast
+    public DroWeatherForecast ToDto()
+        => new DroWeatherForecast
         {
             Id = this.Id,
             Date = this.Date,
             TemperatureC = this.TemperatureC,
-            Summary = this.Summary
+            Summary = this.Summary ?? string.Empty
         };
 
-    public static DboWeatherForecast FromDto(DcoWeatherForecast record)
+    public static DboWeatherForecast FromDto(DroWeatherForecast record)
         => new DboWeatherForecast
         {
             Id = record.Id,

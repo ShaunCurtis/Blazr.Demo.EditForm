@@ -1,11 +1,11 @@
 ﻿@implements IDisposable
 @namespace Blazr.App.UI
 
-<UIListControl TRecord=DcoWeatherForecast Records=this.listViewService!.Records LoadState=this.loadState class="table">
+<UIListControl TRecord=DroWeatherForecast Records=this.listViewService!.Records LoadState=this.loadState class="table">
     <RowTemplate>
         <UIListColumn HeaderTitle="Date">@context.Date.ToShortDateString()</UIListColumn>
         <UIListColumn HeaderTitle="Temp &deg;C">@context.TemperatureC</UIListColumn>
-        <UIListColumn HeaderTitle="Temp &deg;F">@context.TemperatureF</UIListColumn>
+        <UIListColumn HeaderTitle="Temp &deg;F">@context.TemperatureF()</UIListColumn>
         <UIListColumn IsMaxColumn=true HeaderTitle="Summary">@context.Summary</UIListColumn>
         <UIListColumn HeaderTitle="Edit/View" NoWrap="true">
             <UIButton type="button" class="btn-sm btn-primary" ClickEvent="() => this.EditRecord(context.Id)">Edit</UIButton>

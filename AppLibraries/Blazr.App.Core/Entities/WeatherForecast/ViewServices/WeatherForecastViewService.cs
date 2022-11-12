@@ -12,7 +12,7 @@ public class WeatherForecastViewService
 
     private readonly WeatherForecastsViewService weatherForecastsViewService;
 
-    public DcoWeatherForecast Record { get; private set; } = new DcoWeatherForecast();
+    public DroWeatherForecast Record { get; private set; } = new DroWeatherForecast();
 
     public DeoWeatherForecast EditModel { get; private set; }  = new DeoWeatherForecast();
 
@@ -28,16 +28,16 @@ public class WeatherForecastViewService
         this.EditModel.Populate(this.Record);
     }
 
-    public async ValueTask AddRecordAsync(DcoWeatherForecast record)
+    public async ValueTask AddRecordAsync(DroWeatherForecast record)
     {
         this.Record = record;
         await weatherForecastDataBroker!.AddForecastAsync(this.Record);
         weatherForecastsViewService.NotifyListChanged(this, EventArgs.Empty);
     }
 
-    public async ValueTask UpdateRecordAsync()
+    public async ValueTask UpdateRecordAsync(DroWeatherForecast? record = null)
     {
-        this.Record = EditModel.ToDco;
+        this.Record = record ?? EditModel.ToDco;
         await weatherForecastDataBroker!.UpdateForecastAsync(this.Record);
         weatherForecastsViewService.NotifyListChanged(this, EventArgs.Empty);
     }

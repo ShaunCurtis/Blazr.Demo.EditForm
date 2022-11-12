@@ -4,7 +4,7 @@
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
 
-namespace Blazr.Demo.EditForm.Controllers
+namespace Blazr.App.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -17,22 +17,22 @@ namespace Blazr.Demo.EditForm.Controllers
 
         [Route("/api/weatherforecast/list")]
         [HttpGet]
-        public async Task<IEnumerable<DcoWeatherForecast>> GetForecastsAsync()
+        public async Task<IEnumerable<DroWeatherForecast>> GetForecastsAsync()
             => await weatherForecastDataBroker.GetWeatherForecastsAsync();
 
         [Route("/api/weatherforecast/get")]
         [HttpPost]
-        public async Task<DcoWeatherForecast> GetForecastAsync([FromBody] Guid Id)
+        public async Task<DroWeatherForecast> GetForecastAsync([FromBody] Guid Id)
             => await weatherForecastDataBroker.GetForecastAsync(Id);
 
         [Route("/api/weatherforecast/add")]
         [HttpPost]
-        public async Task<bool> AddRecordAsync([FromBody] DcoWeatherForecast record)
+        public async Task<bool> AddRecordAsync([FromBody] DroWeatherForecast record)
             => await weatherForecastDataBroker.AddForecastAsync(record);
 
         [Route("/api/weatherforecast/update")]
         [HttpPost]
-        public async Task<bool> UpdateRecordAsync([FromBody] DcoWeatherForecast record)
+        public async Task<bool> UpdateRecordAsync([FromBody] DroWeatherForecast record)
             => await weatherForecastDataBroker.UpdateForecastAsync(record);
 
         [Route("/api/weatherforecast/delete")]

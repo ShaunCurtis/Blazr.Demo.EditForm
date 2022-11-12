@@ -36,9 +36,9 @@ public partial class WeatherForecastListForm : ComponentBase
 
     private async Task AddRecordAsync()
         => await this.recordViewService!.AddRecordAsync(
-            new DcoWeatherForecast
+            new DroWeatherForecast
             {
-                Date = DateTime.Now,
+                Date = DateOnly.FromDateTime(DateTime.Now),
                 Id = Guid.NewGuid(),
                 Summary = "Balmy",
                 TemperatureC = 14

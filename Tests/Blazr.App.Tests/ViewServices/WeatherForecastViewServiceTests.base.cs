@@ -10,7 +10,7 @@ namespace Blazr.Template.Tests.ViewServices
     public partial class WeatherForecastViewServiceTests
     {
 
-        private ValueTask<IEnumerable<DcoWeatherForecast>> GetWeatherForecastListAsync(int noOfRecords)
+        private ValueTask<IEnumerable<DroWeatherForecast>> GetWeatherForecastListAsync(int noOfRecords)
             => ValueTask.FromResult(WeatherForecastDataStore.CreateTestForecasts(noOfRecords).AsEnumerable());
 
         private ValueTask<int> GetWeatherForecastCountAsync(int noOfRecords)

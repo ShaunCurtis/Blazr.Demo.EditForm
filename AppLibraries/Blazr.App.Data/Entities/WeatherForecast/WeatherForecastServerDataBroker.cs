@@ -17,18 +17,18 @@ public class WeatherForecastServerDataBroker : IWeatherForecastDataBroker
 
     public WeatherForecastServerDataBroker(WeatherForecastDataStore weatherForecastDataStore)
         => this.weatherForecastDataStore = weatherForecastDataStore;
-    public async ValueTask<DcoWeatherForecast> GetForecastAsync(Guid Id)
+    public async ValueTask<DroWeatherForecast> GetForecastAsync(Guid Id)
         => await this.weatherForecastDataStore!.GetForecastAsync(Id);
 
-    public async ValueTask<bool> AddForecastAsync(DcoWeatherForecast record)
+    public async ValueTask<bool> AddForecastAsync(DroWeatherForecast record)
         => await this.weatherForecastDataStore!.AddForecastAsync(record);
 
     public async ValueTask<bool> DeleteForecastAsync(Guid Id)
         => await this.weatherForecastDataStore!.DeleteForecastAsync(Id);
 
-    public async ValueTask<bool> UpdateForecastAsync(DcoWeatherForecast record)
+    public async ValueTask<bool> UpdateForecastAsync(DroWeatherForecast record)
         => await this.weatherForecastDataStore!.UpdateForecastAsync(record);
 
-    public async ValueTask<IEnumerable<DcoWeatherForecast>> GetWeatherForecastsAsync()
+    public async ValueTask<IEnumerable<DroWeatherForecast>> GetWeatherForecastsAsync()
         => await this.weatherForecastDataStore!.GetWeatherForecastsAsync();
 }

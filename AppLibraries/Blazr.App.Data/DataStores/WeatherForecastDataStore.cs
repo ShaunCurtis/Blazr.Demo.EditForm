@@ -26,13 +26,13 @@ public class WeatherForecastDataStore
         return Enumerable.Range(1, _recordsToGet).Select(index => new DboWeatherForecast
         {
             Id = Guid.NewGuid(),
-            Date = DateTime.Now.AddDays(index),
+            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             TemperatureC = rng.Next(-20, 55),
             Summary = Summaries[rng.Next(Summaries.Length)]
         }).ToList();
     }
 
-    public ValueTask<bool> UpdateForecastAsync(DcoWeatherForecast weatherForecast)
+    public ValueTask<bool> UpdateForecastAsync(DroWeatherForecast weatherForecast)
     {
         var record = _records.FirstOrDefault(item => item.Id == weatherForecast.Id);
         if (record is not null)
@@ -42,7 +42,7 @@ public class WeatherForecastDataStore
         return ValueTask.FromResult(true);
     }
 
-    public ValueTask<bool> AddForecastAsync(DcoWeatherForecast weatherForecast)
+    public ValueTask<bool> AddForecastAsync(DroWeatherForecast weatherForecast)
     {
         var record = DboWeatherForecast.FromDto(weatherForecast);
         _records.Add(record);
@@ -50,10 +50,10 @@ public class WeatherForecastDataStore
         return ValueTask.FromResult(true);
     }
 
-    public ValueTask<DcoWeatherForecast> GetForecastAsync(Guid Id)
+    public ValueTask<DroWeatherForecast> GetForecastAsync(Guid Id)
     {
         var record = _records.FirstOrDefault(item => item.Id == Id);
-        return ValueTask.FromResult(record?.ToDto() ?? new DcoWeatherForecast());
+        return ValueTask.FromResult(record?.ToDto() ?? new DroWeatherForecast());
     }
 
     public ValueTask<bool> DeleteForecastAsync(Guid Id)
@@ -68,27 +68,27 @@ public class WeatherForecastDataStore
         return ValueTask.FromResult(deleted);
     }
 
-    public ValueTask<List<DcoWeatherForecast>> GetWeatherForecastsAsync()
+    public ValueTask<List<DroWeatherForecast>> GetWeatherForecastsAsync()
     {
-        var list = new List<DcoWeatherForecast>();
+        var list = new List<DroWeatherForecast>();
         _records
             .ForEach(item => list.Add(item.ToDto()));
         return ValueTask.FromResult(list);
     }
 
-    public void OverrideWeatherForecastDateSet(List<DcoWeatherForecast> list)
+    public void OverrideWeatherForecastDateSet(List<DroWeatherForecast> list)
     {
         _records.Clear();
         list.ForEach(item => _records.Add(DboWeatherForecast.FromDto(item)));
     }
 
-    public static List<DcoWeatherForecast> CreateTestForecasts(int count)
+    public static List<DroWeatherForecast> CreateTestForecasts(int count)
     {
         var rng = new Random();
-        return Enumerable.Range(1, count).Select(index => new DcoWeatherForecast
+        return Enumerable.Range(1, count).Select(index => new DroWeatherForecast
         {
             Id = Guid.NewGuid(),
-            Date = DateTime.Now.AddDays(index),
+            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             TemperatureC = rng.Next(-20, 55),
             Summary = Summaries[rng.Next(Summaries.Length)]
         }).ToList();

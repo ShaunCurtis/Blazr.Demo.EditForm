@@ -17,7 +17,7 @@
         <UIContainer Size=BootstrapSize.Fluid>
             <UIFormRow>
                 <UIColumn Columns=12 MediumColumns=6>
-                    <FormEditControl Label="Date" ShowLabel="true" @bind-Value="this.viewService.EditModel.Date" ControlType="typeof(InputDate<DateTime>)" IsRequired="true" ShowValidation="true" HelperText="Enter the Forecast Date"></FormEditControl>
+                    <FormEditControl Label="Date" ShowLabel="true" @bind-Value="this.viewService.EditModel.Date" ControlType="typeof(InputDate<DateOnly>)" IsRequired="true" ShowValidation="true" HelperText="Enter the Forecast Date"></FormEditControl>
                 </UIColumn>
                 <UIColumn Columns=12 MediumColumns=6>
                     <FormEditControl Label="Temperature &deg;C" ShowLabel="true" @bind-Value="this.viewService.EditModel.TemperatureC" ControlType="typeof(InputNumber<int>)" IsRequired="true" ShowValidation="true" HelperText="Enter the Temperature"></FormEditControl>

@@ -11,7 +11,7 @@ public partial class BaseEditForm : ComponentBase, IDisposable
     private bool _isInitialized;
     private IDisposable? registration;
     protected EditContext? editContent;
-    protected bool AllowNavigationOverride;
+    protected bool NavigateOverride;
 
     [Parameter] public Guid Id { get; set; } = GuidExtensions.Null;
 
@@ -31,6 +31,9 @@ public partial class BaseEditForm : ComponentBase, IDisposable
 
     protected bool IsDirty => editStateContext!.IsDirty;
 
+    protected bool IsLocked => this.IsDirty && !this.NavigateOverride;
+
+
     public override Task SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);
@@ -44,13 +47,13 @@ public partial class BaseEditForm : ComponentBase, IDisposable
 
     protected ValueTask OnLocationChanging(LocationChangingContext changingContext)
     {
-        if (!this.AllowNavigationOverride || this.IsDirty)
+        if (this.IsLocked)
             changingContext.PreventNavigation();
 
         return ValueTask.CompletedTask;
     }
 
-    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    protected async Task OnBeforeInternalNavigation(LocationChangingContext context)
     {
         string message = "This form has unsaved data. Are you sure you want to exit?";
         var isConfirmed = await JSRuntime.InvokeAsync<bool>("confirm", message);
@@ -66,7 +69,7 @@ public partial class BaseEditForm : ComponentBase, IDisposable
 
     protected async void ExitWithoutSaving()
     {
-        this.AllowNavigationOverride = true;
+        this.NavigateOverride = true;
         await DoExit();
     }
 

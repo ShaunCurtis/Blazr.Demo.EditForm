@@ -8,7 +8,7 @@ namespace Blazr.UI;
 
 public class BlazrInputBase<TValue> : ComponentBase
 {
-    [CascadingParameter] public IRecordEditContext RecordEditContext { get; set; } = default!;
+    [CascadingParameter] protected IEditContext editContext { get; set; } = default!;
 
     [Parameter, EditorRequired] public string? FieldName { get; set; }
     [Parameter] public string? Type { get; set; }
@@ -21,7 +21,7 @@ public class BlazrInputBase<TValue> : ComponentBase
     protected string CssClass
         => new CSSBuilder()
         .AddClassFromAttributes(AdditionalAttributes)
-        .AddClass(this.RecordEditContext is not null && !this.NoValidation, ValidationCss)
+        .AddClass(this.editContext is not null && !this.NoValidation, ValidationCss)
         .Build();
 
     protected string ValidationCss

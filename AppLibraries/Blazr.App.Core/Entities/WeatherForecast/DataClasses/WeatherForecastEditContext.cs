@@ -3,7 +3,6 @@
 /// License: Use And Donate
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
-
 namespace Blazr.App.Core;
 
 public class WeatherForecastEditContext : RecordEditContextBase<DroWeatherForecast>
@@ -14,21 +13,21 @@ public class WeatherForecastEditContext : RecordEditContextBase<DroWeatherForeca
     public override Guid Uid
     {
         get => _uid;
-        set => this.UpdateifChangedAndNotify(ref _uid, value, WeatherForecastConstants.Uid);
+        set => this.UpdateifChangedAndNotify(ref _uid, value, this.BaseRecord.Id, WeatherForecastConstants.Uid);
     }
 
     private string _summary = string.Empty;
     public string Summary
     {
         get => _summary;
-        set => this.UpdateifChangedAndNotify(ref _summary, value, WeatherForecastConstants.Summary);
+        set => this.UpdateifChangedAndNotify(ref _summary, value, this.BaseRecord.Summary, WeatherForecastConstants.Summary);
     }
 
     private DateOnly _date;
     public DateOnly Date
     {
         get => _date;
-        set => this.UpdateifChangedAndNotify(ref _date, value, WeatherForecastConstants.Date);
+        set => this.UpdateifChangedAndNotify(ref _date, value, this.BaseRecord.Date, WeatherForecastConstants.Date);
     }
 
     private int _temperatureC;
@@ -36,7 +35,7 @@ public class WeatherForecastEditContext : RecordEditContextBase<DroWeatherForeca
     public int TemperatureC
     {
         get => _temperatureC;
-        set => this.UpdateifChangedAndNotify(ref _temperatureC, value, WeatherForecastConstants.Date);
+        set => this.UpdateifChangedAndNotify(ref _temperatureC, value, this.BaseRecord.TemperatureC, WeatherForecastConstants.Date);
     }
 
     public override bool IsLoaded { get; protected set; }
@@ -63,7 +62,7 @@ public class WeatherForecastEditContext : RecordEditContextBase<DroWeatherForeca
         => this.Load(this.BaseRecord with { });
 
     public override DroWeatherForecast AsNewRecord()
-        => Record with { Id = _newId };
+        => AsRecord() with { Id = _newId };
 
     public override DroWeatherForecast AsRecord()
         => new DroWeatherForecast

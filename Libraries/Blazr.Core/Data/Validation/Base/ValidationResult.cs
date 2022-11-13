@@ -4,12 +4,13 @@
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
 
-namespace Blazr.Core.Edit;
-public interface IEditContext
+namespace Blazr.Core.Validation;
+
+public readonly struct ValidationResult
 {
-    public event EventHandler<string?>? FieldChanged;
-    public event EventHandler<bool>? EditStateUpdated;
-    public Guid Uid { get; set; }
-    public bool IsDirty { get; }
-    public bool IsNew { get; }
+    public ValidationMessageCollection ValidationMessages { get; init; }
+    
+    public bool IsValid { get; init; }
+
+    public bool ValidationNotRun { get; init; }
 }

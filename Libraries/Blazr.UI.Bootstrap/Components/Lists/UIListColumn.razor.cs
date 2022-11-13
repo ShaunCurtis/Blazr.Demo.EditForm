@@ -22,7 +22,6 @@ public partial class UIListColumn : UIComponentBase
     private string HeaderCss
         => CSSBuilder.Class()
             .AddClass(IsHeaderNoWrap, "header-column-nowrap", "header-column")
-            .AddClass("text-nowrap", NoWrap)
             .AddClass("align-baseline")
             .Build();
     private string TDCss

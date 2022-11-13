@@ -62,13 +62,11 @@ public class FormEditControl<TValue> : ComponentBase
     }
 
     private string MessageCss => CSSBuilder.Class()
-        .AddClass("invalid-feedback", !this.IsValid)
-        .AddClass("valid-feedback", this.IsValid)
+        .AddClass(!this.IsValid, "valid-feedback", "invalid-feedback")
         .Build();
 
     private string ControlCss => CSSBuilder.Class(this.ControlCssClass)
-        .AddClass("is-valid", this.IsValid)
-        .AddClass("is-invalid", !this.IsValid)
+        .AddClass(!this.IsValid, "is-valid", "is-invalid")
         .Build();
 
     protected override void OnInitialized()

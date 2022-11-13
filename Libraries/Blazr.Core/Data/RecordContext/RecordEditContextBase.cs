@@ -4,12 +4,13 @@
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
 
-namespace Blazr.Core;
+namespace Blazr.Core.Edit;
 
 public abstract class RecordEditContextBase<TRecord> : IEditContext
     where TRecord : class, new()
 {
     protected TRecord BaseRecord = new();
+    protected readonly RecordPropertyStateCollection RecordPropertyStateCollection = new();
 
     public Guid InstanceId { get; } = Guid.NewGuid();
 
@@ -17,9 +18,7 @@ public abstract class RecordEditContextBase<TRecord> : IEditContext
 
     public bool ValidateOnFieldChanged { get; set; } = false;
 
-    public virtual TRecord Record => new();
-
-    public virtual bool IsDirty => !BaseRecord.Equals(this.Record);
+    public virtual bool IsDirty => !BaseRecord.Equals(this.AsRecord());
 
     public bool IsNew => this.Uid == Guid.Empty;
 
@@ -46,17 +45,22 @@ public abstract class RecordEditContextBase<TRecord> : IEditContext
 
     public abstract void Reset();
 
-    protected bool UpdateifChangedAndNotify<TType>(ref TType currentValue, TType value, string fieldName)
+    protected bool UpdateifChangedAndNotify<TType>(ref TType currentValue, TType value, TType originalValue, string fieldName)
     {
         if (!this.IsLoaded)
             throw RecordContextNotLoadedException.Create($"You can't set values in {this.GetType().Name} before you have loaded a record");
 
         var hasChanged = !value?.Equals(currentValue) ?? currentValue is not null;
+        var hasChangedFromOriginal = !value?.Equals(originalValue) ?? originalValue is not null;
         if (hasChanged)
         {
             currentValue = value;
             NotifyFieldChanged(fieldName);
         }
+
+        this.RecordPropertyStateCollection.ClearState(this.InstanceId, fieldName);
+        if (hasChangedFromOriginal)
+            this.RecordPropertyStateCollection.Add(this.InstanceId, fieldName);
 
         return hasChanged;
     }

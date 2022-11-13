@@ -4,7 +4,7 @@
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
 
-namespace Blazr.Core;
+namespace Blazr.Core.Edit;
 
 public class RecordContextNotLoadedException : Exception
 {

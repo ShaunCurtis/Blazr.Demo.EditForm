@@ -19,22 +19,22 @@ public abstract class Base_EditForm : ComponentBase, IDisposable
     private IDisposable? registration;
 
     protected bool NavigateRegardless;
-    protected IEditContext? editRecordContext;
+    protected IEditContext? editContext;
 
     protected bool IsModal => this.Modal != null;
-    protected bool IsDirty => editRecordContext?.IsDirty ?? false;
+    protected bool IsDirty => editContext?.IsDirty ?? false;
 
     public ComponentState LoadState { get; protected set; } = ComponentState.New;
 
     public async override Task SetParametersAsync(ParameterView parameters)
     {
-        await base.SetParametersAsync(ParameterView.Empty);
+        await base.SetParametersAsync(parameters);
         if (!_isInitialized)
         {
             registration = NavManager.RegisterLocationChangingHandler(OnLocationChanging);
-            if (editRecordContext is not null)
-                editRecordContext.EditStateUpdated += this.OnStateChanged;
-
+            if (editContext is not null)
+                editContext.EditStateUpdated += this.OnStateChanged;
+            
             _isInitialized = true;
         }
     }

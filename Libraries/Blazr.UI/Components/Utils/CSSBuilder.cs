@@ -32,8 +32,8 @@ public class CSSBuilder
         return this;
     }
 
-    public CSSBuilder AddClass(string cssFragment, bool WhenTrue)
-        => WhenTrue ? this.AddClass(cssFragment) : this;
+    public CSSBuilder AddClass(bool WhenTrue, string cssFragment)
+    => WhenTrue ? this.AddClass(cssFragment) : this;
 
     public CSSBuilder AddClass(bool WhenTrue, string trueCssFragment, string falseCssFragment)
         => WhenTrue ? this.AddClass(trueCssFragment) : this.AddClass(falseCssFragment);

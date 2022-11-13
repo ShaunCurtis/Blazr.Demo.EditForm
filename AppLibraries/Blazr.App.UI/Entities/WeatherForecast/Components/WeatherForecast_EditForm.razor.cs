@@ -1,7 +1,4 @@
-﻿
-
-using Blazr.UI;
-/// ============================================================
+﻿/// ============================================================
 /// Author: Shaun Curtis, Cold Elm Coders
 /// License: Use And Donate
 /// If you use it, donate something to a charity somewhere
@@ -20,6 +17,7 @@ public partial class WeatherForecast_EditForm : Base_EditForm
         base.LoadState = ComponentState.Loading;
         await this.viewService.GetForecastAsync(this.Id);
         this.RecordEditContext = new WeatherForecastEditContext(this.viewService.Record);
+        this.editContext = this.RecordEditContext;
         base.LoadState = ComponentState.Loaded;
     }
 

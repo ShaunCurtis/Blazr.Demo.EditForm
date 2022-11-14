@@ -27,7 +27,7 @@ public partial class UIListColumn : UIComponentBase
     private string TDCss
         => CSSBuilder.Class()
             .AddClass(this.isMaxRowColumn, "max-column", "data-column")
-            .AddClass("text-nowrap", this.NoWrap)
+            .AddClass(this.NoWrap, "text-nowrap")
             .Build();
 }
 

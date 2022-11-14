@@ -8,11 +8,16 @@ namespace Blazr.Core.Validation;
 
 public class ValidationStateEventArgs : EventArgs
 {
-    public bool ValidationState { get; set; }
-    public Guid? OjectUid { get; set; }
-    public string? Field { get; set; }
+    public bool ValidationState { get; init; }
+    public FieldReference? Field { get; init; }
 
-    public static ValidationStateEventArgs Create(bool state, Guid? objectUid , string? field)
-        => new ValidationStateEventArgs { ValidationState = state, OjectUid = objectUid, Field = field };
+    private ValidationStateEventArgs(bool validationState, FieldReference? field)
+    {
+        ValidationState = validationState;
+        Field = field;
+    }
+
+    public static ValidationStateEventArgs Create(bool state, FieldReference? field)
+        => new ValidationStateEventArgs(state, field );
 }
 

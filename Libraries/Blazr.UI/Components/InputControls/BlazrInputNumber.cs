@@ -18,17 +18,13 @@ public class BlazrInputNumber<TValue> : BlazrInputBase<TValue>
         : base()
     {
         this.BaseInputControl = BuildControl;
-        _isDecimal = IsDecimal(this.Value); 
+        _isDecimal = IsDecimal(this.Value);
     }
 
-    protected override ValueTask<bool> OnParametersChangedAsync(bool firstRender)
+    protected override void OnInitialized()
     {
-        if (firstRender)
-        {
-            _oldValue = this.Value;
-            _stringValue = GetValueAsString(this.Value);
-        }
-        return ValueTask.FromResult(true);
+        _oldValue = this.Value;
+        _stringValue = GetValueAsString(this.Value);
     }
 
     protected override string? ValueAsString

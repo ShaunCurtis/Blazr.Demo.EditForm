@@ -42,6 +42,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.App.Config", "Applica
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazr.UI.Bootstrap", "Libraries\Blazr.UI.Bootstrap\Blazr.UI.Bootstrap.csproj", "{251219DE-591C-4CD4-9AC9-3A811697AF6E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documents", "documents", "{50F04431-F960-4F8F-88FB-CB4F9C2C0E7F}"
+	ProjectSection(SolutionItems) = preProject
+		article.md = article.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

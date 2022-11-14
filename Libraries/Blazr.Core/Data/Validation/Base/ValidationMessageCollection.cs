@@ -6,7 +6,7 @@
 
 namespace Blazr.Core.Validation;
 
-public record ValidationMessage(Guid ObjectUid, string Field, string Message) { }
+public record ValidationMessage(FieldReference Field, string Message);
 
 public class ValidationMessageCollection : IEnumerable<ValidationMessage>
 {
@@ -15,16 +15,16 @@ public class ValidationMessageCollection : IEnumerable<ValidationMessage>
     public void Add(ValidationMessage message)
         => _messages.Add(message);
 
-    public void Add(Guid objectUid, string field, string message)
-        => _messages.Add(new ValidationMessage(objectUid, field, message));
+    public void Add(FieldReference field, string message)
+        => _messages.Add(new ValidationMessage(field, message));
 
-    public void Add(Guid objectUid, string field, IEnumerable<string> messages)
+    public void Add(FieldReference field, IEnumerable<string> messages)
     {
         foreach (var message in messages)
-            _messages.Add(new ValidationMessage(objectUid, field, message));
+            _messages.Add(new ValidationMessage(field, message));
     }
 
-    public void ClearMessages(string field)
+    public void ClearMessages(FieldReference field)
     {
         var messagesToDelete = _messages.Where(item => item.Field.Equals(field)).ToList();
         if (messagesToDelete is not null)
@@ -35,12 +35,12 @@ public class ValidationMessageCollection : IEnumerable<ValidationMessage>
     public void ClearAllMessages()
         => _messages.Clear();
 
-    public IEnumerable<string> GetMessages(string? field = null)
+    public IEnumerable<string> GetMessages(FieldReference? field = null)
         => field is null
         ? _messages.Select(item => item.Message).AsEnumerable()
         : _messages.Where(item => item.Field.Equals(field)).Select(item => item.Message).AsEnumerable() ?? Enumerable.Empty<string>();
 
-    public bool HasMessages(string? field = null)
+    public bool HasMessages(FieldReference? field = null)
         => field is null
         ? _messages.Any()
         : _messages.Any(item => item.Field.Equals(field));

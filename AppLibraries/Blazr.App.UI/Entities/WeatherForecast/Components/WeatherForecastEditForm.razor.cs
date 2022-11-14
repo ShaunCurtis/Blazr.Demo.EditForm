@@ -30,7 +30,7 @@ public partial class WeatherForecastEditForm : BaseEditForm
 
     private async Task AddRecord()
     => await this.viewService.AddRecordAsync(
-        new DroWeatherForecast
+        new WeatherForecast
         {
             Date = DateOnly.FromDateTime(DateTime.Now),
             Id = Guid.NewGuid(),

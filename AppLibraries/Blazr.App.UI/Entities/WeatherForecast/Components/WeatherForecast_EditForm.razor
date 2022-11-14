@@ -10,38 +10,40 @@
 @implements IDisposable
 
 <UILoader State="this.LoadState">
-    <FormViewTitle>
-        <h2>Weather Forecast Editor</h2>
-    </FormViewTitle>
-    <UIContainer Size=BootstrapSize.Fluid>
-        <UIFormRow>
-            <UIColumn Columns=12 MediumColumns=6>
-                <label class="form-label">Date</label>
-                <input type="date" class="form-control" @bind="this.RecordEditContext.Date">
-                <div class="form-text">Set the date for this forecast.</div>
-            </UIColumn>
-            <UIColumn Columns=12 MediumColumns=6>
-                <label class="form-label">Temperature &deg;C</label>
-                <input type="number" class="form-control" @bind="this.RecordEditContext.TemperatureC">
-                <div class="form-text">Set the Temperature for this forecast.</div>
-            </UIColumn>
-        </UIFormRow>
-        <UIFormRow>
-            <UIColumn Columns=12>
-                <label class="form-label">Summary</label>
-                <input type="text" class="form-control" @bind="this.RecordEditContext.Summary">
-                <div class="form-text">Summarize the weather for this forecast.</div>
-            </UIColumn>
-        </UIFormRow>
-    </UIContainer>
-    <UIContainer Size=BootstrapSize.Fluid>
-        <UIFormRow>
-            <UIColumn Columns=12 class="text-end">
-                <UIButton class="btn-success" Disabled="!this.IsDirty" ClickEvent="this.SaveRecord">Save</UIButton>
-                <UIButton class="btn-dark" Show="!this.IsDirty" ClickEvent="this.Exit">Exit</UIButton>
-                <UIButton class="btn-danger" Show="this.IsDirty" ClickEvent="this.ExitWithoutSaving">Exit Without Saving</UIButton>
-            </UIColumn>
-        </UIFormRow>
-    </UIContainer>
+    <CascadingValue Value=this.editContext>
+        <FormViewTitle>
+            <h2>Weather Forecast Editor</h2>
+        </FormViewTitle>
+        <UIContainer Size=BootstrapSize.Fluid>
+            <UIFormRow>
+                <UIColumn Columns=12 MediumColumns=6>
+                    <label class="form-label">Date</label>
+                    <BlazrInput type="date" class="form-control" FieldName="@WeatherForecastConstants.Date" FieldObjectUid="this.RecordEditContext.InstanceId" @bind-Value=this.RecordEditContext.Date />
+                    <div class="form-text">Set the date for this forecast.</div>
+                </UIColumn>
+                <UIColumn Columns=12 MediumColumns=6>
+                    <label class="form-label">Temperature &deg;C</label>
+                    <BlazrInput type="number" class="form-control" FieldName="@WeatherForecastConstants.TemperatureC" FieldObjectUid="this.RecordEditContext.InstanceId" @bind-Value=this.RecordEditContext.TemperatureC />
+                    <div class="form-text">Set the Temperature for this forecast.</div>
+                </UIColumn>
+            </UIFormRow>
+            <UIFormRow>
+                <UIColumn Columns=12>
+                    <label class="form-label">Summary</label>
+                    <BlazrInput type="text" class="form-control" FieldName="@WeatherForecastConstants.Summary" FieldObjectUid="this.RecordEditContext.InstanceId" @bind-Value=this.RecordEditContext.Summary />
+                    <div class="form-text">Summarize the weather for this forecast.</div>
+                </UIColumn>
+            </UIFormRow>
+        </UIContainer>
+        <UIContainer Size=BootstrapSize.Fluid>
+            <UIFormRow>
+                <UIColumn Columns=12 class="text-end">
+                    <UIButton class="btn-success" Disabled="!this.IsDirty" ClickEvent="this.SaveRecord">Save</UIButton>
+                    <UIButton class="btn-dark" Show="!this.IsDirty" ClickEvent="this.Exit">Exit</UIButton>
+                    <UIButton class="btn-danger" Show="this.IsDirty" ClickEvent="this.ExitWithoutSaving">Exit Without Saving</UIButton>
+                </UIColumn>
+            </UIFormRow>
+        </UIContainer>
+    </CascadingValue>
 </UILoader>
 <NavigationLock ConfirmExternalNavigation=this.IsDirty />

@@ -75,7 +75,7 @@ public abstract class ValidatorBase<T>
             if (validationMessageStore is not null && model is not null)
                 this.validationMessageStore?.Add(new FieldIdentifier(this.model, this.fieldName), this.Messages);
 
-            this.validationMessages.Add(objectUid, fieldName, this.Messages);
+            this.validationMessages.Add(new(objectUid, fieldName), this.Messages);
         }
 
         return new ValidationResult { IsValid = validationState.IsValid, ValidationMessages = this.validationMessages, ValidationNotRun = !needToLogMessages };

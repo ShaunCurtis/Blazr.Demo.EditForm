@@ -10,7 +10,7 @@ public class WeatherForecastsViewService
 {
     private readonly IWeatherForecastDataBroker? weatherForecastDataBroker;
 
-    public IEnumerable<DroWeatherForecast>? Records { get; private set; }
+    public IEnumerable<WeatherForecast>? Records { get; private set; }
 
     public WeatherForecastsViewService(IWeatherForecastDataBroker weatherForecastDataBroker)
         => this.weatherForecastDataBroker = weatherForecastDataBroker!;

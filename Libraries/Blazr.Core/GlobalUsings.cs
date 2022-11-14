@@ -8,4 +8,4 @@ global using System.Linq.Expressions;
 global using System.Text;
 global using System.Diagnostics;
 
-namespace Blazr.Core;
+global using Blazr.Core.Validation;

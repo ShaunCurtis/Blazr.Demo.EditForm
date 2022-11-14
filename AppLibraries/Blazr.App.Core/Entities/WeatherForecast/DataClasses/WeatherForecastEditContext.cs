@@ -5,7 +5,7 @@
 /// ============================================================
 namespace Blazr.App.Core;
 
-public class WeatherForecastEditContext : RecordEditContextBase<DroWeatherForecast>
+public class WeatherForecastEditContext : RecordEditContextBase<WeatherForecast>
 {
     private Guid _newId = Guid.NewGuid();
 
@@ -35,16 +35,16 @@ public class WeatherForecastEditContext : RecordEditContextBase<DroWeatherForeca
     public int TemperatureC
     {
         get => _temperatureC;
-        set => this.UpdateifChangedAndNotify(ref _temperatureC, value, this.BaseRecord.TemperatureC, WeatherForecastConstants.Date);
+        set => this.UpdateifChangedAndNotify(ref _temperatureC, value, this.BaseRecord.TemperatureC, WeatherForecastConstants.TemperatureC);
     }
 
     public override bool IsLoaded { get; protected set; }
 
     public WeatherForecastEditContext() { }
 
-    public WeatherForecastEditContext(DroWeatherForecast record) : base(record) { }
+    public WeatherForecastEditContext(WeatherForecast record) : base(record) { }
 
-    public override void Load(DroWeatherForecast record, bool notify = true)
+    public override void Load(WeatherForecast record, bool notify = true)
     {
         this.BaseRecord = record with { };
         _uid = record.Id;
@@ -58,18 +58,18 @@ public class WeatherForecastEditContext : RecordEditContextBase<DroWeatherForeca
         this.IsLoaded = true;
     }
 
-    public override void Reset()
-        => this.Load(this.BaseRecord with { });
-
-    public override DroWeatherForecast AsNewRecord()
-        => AsRecord() with { Id = _newId };
-
-    public override DroWeatherForecast AsRecord()
-        => new DroWeatherForecast
+    public override WeatherForecast AsRecord()
+        => new WeatherForecast
         {
             Id = _uid,
             Summary = _summary,
             Date = _date,
             TemperatureC = _temperatureC
         };
+
+    public override void Reset()
+        => this.Load(this.BaseRecord with { });
+
+    public override WeatherForecast AsNewRecord()
+        => AsRecord() with { Id = _newId };
 }

@@ -21,5 +21,6 @@ global using System.Diagnostics;
 global using Blazr.NavigationLocker;
 global using Blazr.Core;
 global using Blazr.Core.Edit;
+global using Blazr.Core.Validation;
 
 namespace Blazr.UI;

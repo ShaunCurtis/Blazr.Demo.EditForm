@@ -9,8 +9,8 @@ namespace Blazr.UI;
 public class BlazrInputBase<TValue> : ComponentBase
 {
     [CascadingParameter] protected IEditContext editContext { get; set; } = default!;
-
-    [Parameter, EditorRequired] public string? FieldName { get; set; }
+    [Parameter, EditorRequired] public string FieldName { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public Guid FieldObjectUid { get; set; } = Guid.Empty;
     [Parameter] public string? Type { get; set; }
     [Parameter] public TValue? Value { get; set; }
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
@@ -25,19 +25,32 @@ public class BlazrInputBase<TValue> : ComponentBase
         .Build();
 
     protected string ValidationCss
-        => this.RecordEditContext?.HasMessages(this.FieldName) ?? false
-        ? "is-invalid"
-        : "is-valid";
-        
+    {
+        get
+        {
+            var field = FieldReference.Create(this.FieldObjectUid, this.FieldName);
+            var isInvalid = this.editContext?.HasMessages(field) ?? false;
+            var isChanged = this.editContext?.IsChanged(field) ?? false;
+
+            if (isChanged && isInvalid)
+                return "is-invalid";
+
+            if (isChanged && !isInvalid)
+                return "is-valid";
+
+            return string.Empty;
+        }
+    }
+
     protected virtual string? ValueAsString
         => GetValueAsString(this.Value);
 
-    protected override ValueTask<bool> OnParametersChangedAsync(bool firstRender)
+    protected override Task OnInitializedAsync()
     {
-        if (firstRender && RecordEditContext is not null)
-            this.RecordEditContext.ValidationStateUpdated += this.OnValidationStateUpdated;
+        if (this.editContext is not null)
+            this.editContext.ValidationStateUpdated += this.OnValidationStateUpdated;
 
-        return ValueTask.FromResult(true);
+        return Task.CompletedTask;
     }
 
     protected void OnChanged(ChangeEventArgs e)
@@ -54,8 +67,8 @@ public class BlazrInputBase<TValue> : ComponentBase
 
     public void Dispose()
     {
-        if (RecordEditContext is not null)
-            this.RecordEditContext.ValidationStateUpdated -= this.OnValidationStateUpdated;
+        if (this.editContext is not null)
+            this.editContext.ValidationStateUpdated -= this.OnValidationStateUpdated;
     }
 
     protected static string? GetValueAsString(TValue? initialValue) =>

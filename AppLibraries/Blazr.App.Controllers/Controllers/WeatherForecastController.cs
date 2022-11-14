@@ -17,22 +17,22 @@ namespace Blazr.App.Controllers
 
         [Route("/api/weatherforecast/list")]
         [HttpGet]
-        public async Task<IEnumerable<DroWeatherForecast>> GetForecastsAsync()
+        public async Task<IEnumerable<WeatherForecast>> GetForecastsAsync()
             => await weatherForecastDataBroker.GetWeatherForecastsAsync();
 
         [Route("/api/weatherforecast/get")]
         [HttpPost]
-        public async Task<DroWeatherForecast> GetForecastAsync([FromBody] Guid Id)
+        public async Task<WeatherForecast> GetForecastAsync([FromBody] Guid Id)
             => await weatherForecastDataBroker.GetForecastAsync(Id);
 
         [Route("/api/weatherforecast/add")]
         [HttpPost]
-        public async Task<bool> AddRecordAsync([FromBody] DroWeatherForecast record)
+        public async Task<bool> AddRecordAsync([FromBody] WeatherForecast record)
             => await weatherForecastDataBroker.AddForecastAsync(record);
 
         [Route("/api/weatherforecast/update")]
         [HttpPost]
-        public async Task<bool> UpdateRecordAsync([FromBody] DroWeatherForecast record)
+        public async Task<bool> UpdateRecordAsync([FromBody] WeatherForecast record)
             => await weatherForecastDataBroker.UpdateForecastAsync(record);
 
         [Route("/api/weatherforecast/delete")]

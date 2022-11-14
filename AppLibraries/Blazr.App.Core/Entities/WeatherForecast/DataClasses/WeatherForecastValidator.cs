@@ -7,14 +7,14 @@ namespace Blazr.App.Core;
 
 public class WeatherForecastValidator
 {
-    public static ValidationResult Validate(DroWeatherForecast record, Guid objectUid, ValidationMessageCollection? validationMessages, string? fieldname = null)
+    public static ValidationResult Validate(WeatherForecast record, Guid objectUid, ValidationMessageCollection? validationMessages, string? fieldname = null)
     {
         ValidationState validationState = new ValidationState();
 
         ValidationMessageCollection messages = validationMessages ?? new ValidationMessageCollection();
 
         if (fieldname != null)
-            validationMessages?.ClearMessages(fieldname);
+            validationMessages?.ClearMessages(new(objectUid, fieldname));
 
         if (WeatherForecastConstants.Date.Equals(fieldname) || fieldname is null)
             record.Date.Validation(objectUid, WeatherForecastConstants.Date, messages, validationState)

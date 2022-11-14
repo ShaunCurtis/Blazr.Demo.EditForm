@@ -6,22 +6,19 @@
 
 namespace Blazr.Core.Edit;
 
-public record RecordPropertyState(Guid ObjectUid, string Field) { }
-
-public class RecordPropertyStateCollection : IEnumerable<RecordPropertyState>
+public class PropertyStateCollection : IEnumerable<FieldReference>
 {
-    private readonly List<RecordPropertyState> _states = new List<RecordPropertyState>();
+    private readonly List<FieldReference> _states = new List<FieldReference>();
 
-    public void Add(RecordPropertyState state)
+    public void Add(FieldReference state)
         => _states.Add(state);
 
     public void Add(Guid objectUid, string field)
-        => _states.Add(new RecordPropertyState(objectUid, field));
+        => _states.Add(new FieldReference(objectUid, field));
 
-
-    public void ClearState(Guid objectUid, string field)
+    public void ClearState(FieldReference field)
     {
-        var toDelete = _states.Where(item => item.ObjectUid.Equals(objectUid) && item.Field.Equals(field)).ToList();
+        var toDelete = _states.Where(item => item.Equals(field)).ToList();
         if (toDelete is not null)
             foreach (var state in toDelete)
                 _states.Remove(state);
@@ -30,17 +27,15 @@ public class RecordPropertyStateCollection : IEnumerable<RecordPropertyState>
     public void ClearAllstates()
         => _states.Clear();
 
-    public bool GetState(Guid objectUid, string? field = null)
-        => field is null
-            ? _states.Any(item => item.ObjectUid.Equals(objectUid))
-            : _states.Any(item => item.Field.Equals(field) && item.ObjectUid.Equals(objectUid));
+    public bool GetState(FieldReference field)
+        => _states.Any(item => item.Equals(field));
 
     public bool HasStates(Guid? objectUid = null)
         => objectUid is null
             ? _states.Any()
             : _states.Any(item => item.ObjectUid.Equals(objectUid));
 
-    public IEnumerator<RecordPropertyState> GetEnumerator()
+    public IEnumerator<FieldReference> GetEnumerator()
         => _states.GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator()

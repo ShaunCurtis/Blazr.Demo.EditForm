@@ -20,7 +20,7 @@ public class DeoWeatherForecast
 
     public bool IsNull => Id == GuidExtensions.Null;
 
-    public void Populate(DroWeatherForecast record)
+    public void Populate(WeatherForecast record)
     {
         this.Id = record.Id;
         this.Date = record.Date;
@@ -28,8 +28,8 @@ public class DeoWeatherForecast
         this.TemperatureC = record.TemperatureC;
     }
 
-    public DroWeatherForecast ToDco =>
-        new DroWeatherForecast() {
+    public WeatherForecast ToDco =>
+        new WeatherForecast() {
             Id = this.Id,
             Date = this.Date,
             Summary = this.Summary,

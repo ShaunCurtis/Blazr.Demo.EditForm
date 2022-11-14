@@ -1,48 +1,39 @@
-﻿/// ============================================================
-/// Author: Shaun Curtis, Cold Elm Coders
-/// License: Use And Donate
-/// If you use it, donate something to a charity somewhere
-/// ============================================================
-
-namespace Blazr.Core.Edit;
+﻿namespace Blazr.Core.Edit;
 
 public abstract class RecordEditContextBase<TRecord> : IEditContext
     where TRecord : class, new()
 {
     protected TRecord BaseRecord = new();
-    protected readonly RecordPropertyStateCollection RecordPropertyStateCollection = new();
 
+    // InstanceId provides a unique reference for an instance of the Edit Context
+    // It'siused in validation and state tracking in `FieldReference` objects
     public Guid InstanceId { get; } = Guid.NewGuid();
-
-    public abstract Guid Uid { get; set; }
-
     public bool ValidateOnFieldChanged { get; set; } = false;
-
-    public virtual bool IsDirty => !BaseRecord.Equals(this.AsRecord());
-
+    public bool IsDirty => !BaseRecord.Equals(this.AsRecord());
+    public bool IsValid => ValidationMessages.HasMessages();
     public bool IsNew => this.Uid == Guid.Empty;
 
     public abstract bool IsLoaded { get; protected set; }
+    public abstract Guid Uid { get; set; }
 
-    public TRecord CleanRecord => this.BaseRecord;
-
-    public abstract TRecord AsRecord();
-
-    public abstract TRecord AsNewRecord();
-
-    public void Save()
-        => this.Load(this.AsRecord());
+    public readonly ValidationMessageCollection ValidationMessages = new();
+    public readonly PropertyStateCollection PropertyStates = new();
 
     public event EventHandler<string?>? FieldChanged;
     public event EventHandler<bool>? EditStateUpdated;
+    public event EventHandler<ValidationStateEventArgs>? ValidationStateUpdated;
 
     public RecordEditContextBase() { }
 
     public RecordEditContextBase(TRecord record)
         => this.Load(record, false);
 
-    public abstract void Load(TRecord record, bool notify = true);
+    public void Save()
+        => this.Load(this.AsRecord());
 
+    public abstract void Load(TRecord record, bool notify = true);
+    public abstract TRecord AsRecord();
+    public abstract TRecord AsNewRecord();
     public abstract void Reset();
 
     protected bool UpdateifChangedAndNotify<TType>(ref TType currentValue, TType value, TType originalValue, string fieldName)
@@ -58,9 +49,10 @@ public abstract class RecordEditContextBase<TRecord> : IEditContext
             NotifyFieldChanged(fieldName);
         }
 
-        this.RecordPropertyStateCollection.ClearState(this.InstanceId, fieldName);
+        var field = FieldReference.Create(this.InstanceId, fieldName);
+        this.PropertyStates.ClearState(field);
         if (hasChangedFromOriginal)
-            this.RecordPropertyStateCollection.Add(this.InstanceId, fieldName);
+            this.PropertyStates.Add(field);
 
         return hasChanged;
     }
@@ -69,5 +61,18 @@ public abstract class RecordEditContextBase<TRecord> : IEditContext
     {
         FieldChanged?.Invoke(null, fieldName);
         EditStateUpdated?.Invoke(null, IsDirty);
+    }
+
+    public bool HasMessages(FieldReference field)
+        => this.ValidationMessages.HasMessages(field);
+
+    public bool IsChanged(FieldReference field)
+        => this.PropertyStates.GetState(field);
+
+    public virtual ValidationResult Validate(FieldReference? field = null)
+    {
+        var result = new ValidationResult { IsValid = ValidationMessages.HasMessages(), ValidationMessages = ValidationMessages, ValidationNotRun = false };
+        this.ValidationStateUpdated?.Invoke(null, ValidationStateEventArgs.Create(result.IsValid, field));
+        return result;
     }
 }

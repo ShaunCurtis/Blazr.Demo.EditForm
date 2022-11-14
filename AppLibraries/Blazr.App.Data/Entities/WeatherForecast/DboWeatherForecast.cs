@@ -16,8 +16,8 @@ internal record DboWeatherForecast
 
     public string? Summary { get; init; }
 
-    public DroWeatherForecast ToDto()
-        => new DroWeatherForecast
+    public WeatherForecast ToDto()
+        => new WeatherForecast
         {
             Id = this.Id,
             Date = this.Date,
@@ -25,7 +25,7 @@ internal record DboWeatherForecast
             Summary = this.Summary ?? string.Empty
         };
 
-    public static DboWeatherForecast FromDto(DroWeatherForecast record)
+    public static DboWeatherForecast FromDto(WeatherForecast record)
         => new DboWeatherForecast
         {
             Id = record.Id,

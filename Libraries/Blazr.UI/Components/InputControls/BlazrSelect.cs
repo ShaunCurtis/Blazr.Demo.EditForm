@@ -8,6 +8,7 @@ namespace Blazr.UI;
 
 public class BlazrSelect<TValue> : BlazrInputBase<TValue>
 {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
     [DisallowNull] public ElementReference? Element { get; protected set; }
 
     private readonly bool _isMultipleSelect;

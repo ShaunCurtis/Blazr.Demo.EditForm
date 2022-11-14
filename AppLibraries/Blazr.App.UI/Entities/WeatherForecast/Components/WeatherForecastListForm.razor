@@ -1,7 +1,7 @@
 ﻿@implements IDisposable
 @namespace Blazr.App.UI
 
-<UIListControl TRecord=DroWeatherForecast Records=this.listViewService!.Records LoadState=this.loadState class="table">
+<UIListControl TRecord=WeatherForecast Records=this.listViewService!.Records LoadState=this.loadState class="table">
     <RowTemplate>
         <UIListColumn HeaderTitle="Date">@context.Date.ToShortDateString()</UIListColumn>
         <UIListColumn HeaderTitle="Temp &deg;C">@context.TemperatureC</UIListColumn>

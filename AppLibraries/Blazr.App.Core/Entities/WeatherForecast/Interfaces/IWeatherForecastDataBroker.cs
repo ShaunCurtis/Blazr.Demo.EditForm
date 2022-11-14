@@ -11,13 +11,13 @@ namespace Blazr.App.Core;
 /// </summary>
 public interface IWeatherForecastDataBroker
 {
-    public ValueTask<bool> AddForecastAsync(DroWeatherForecast record);
+    public ValueTask<bool> AddForecastAsync(WeatherForecast record);
 
-    public ValueTask<bool> UpdateForecastAsync(DroWeatherForecast record);
+    public ValueTask<bool> UpdateForecastAsync(WeatherForecast record);
 
-    public ValueTask<DroWeatherForecast> GetForecastAsync(Guid Id);
+    public ValueTask<WeatherForecast> GetForecastAsync(Guid Id);
 
     public ValueTask<bool> DeleteForecastAsync(Guid Id);
 
-    public ValueTask<IEnumerable<DroWeatherForecast>> GetWeatherForecastsAsync();
+    public ValueTask<IEnumerable<WeatherForecast>> GetWeatherForecastsAsync();
 }

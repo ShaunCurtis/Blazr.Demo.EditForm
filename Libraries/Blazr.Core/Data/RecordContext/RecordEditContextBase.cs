@@ -6,7 +6,7 @@ public abstract class RecordEditContextBase<TRecord> : IEditContext
     protected TRecord BaseRecord = new();
 
     // InstanceId provides a unique reference for an instance of the Edit Context
-    // It'siused in validation and state tracking in `FieldReference` objects
+    // It's used in validation and state tracking in `FieldReference` objects
     public Guid InstanceId { get; } = Guid.NewGuid();
     public bool ValidateOnFieldChanged { get; set; } = false;
     public bool IsDirty => !BaseRecord.Equals(this.AsRecord());

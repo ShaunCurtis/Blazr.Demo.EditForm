@@ -38,10 +38,6 @@ public class WeatherForecastEditContext : RecordEditContextBase<WeatherForecast>
         set => this.UpdateifChangedAndNotify(ref _temperatureC, value, this.BaseRecord.TemperatureC, WeatherForecastConstants.TemperatureC);
     }
 
-    public override bool IsLoaded { get; protected set; }
-
-    public WeatherForecastEditContext() { }
-
     public WeatherForecastEditContext(WeatherForecast record) : base(record) { }
 
     public override void Load(WeatherForecast record, bool notify = true)
@@ -66,9 +62,6 @@ public class WeatherForecastEditContext : RecordEditContextBase<WeatherForecast>
             Date = _date,
             TemperatureC = _temperatureC
         };
-
-    public override void Reset()
-        => this.Load(this.BaseRecord with { });
 
     public override WeatherForecast AsNewRecord()
         => AsRecord() with { Id = _newId };

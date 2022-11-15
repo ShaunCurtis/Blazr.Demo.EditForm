@@ -9,37 +9,39 @@ namespace Blazr.UI;
 public abstract class BaseEditForm : ComponentBase, IDisposable
 {
     [Parameter] public Guid Id { get; set; } = GuidExtensions.Null;
-    [Parameter] public EventCallback ExitAction { get; set; }
-    [CascadingParameter] public IModalDialog? Modal { get; set; }
 
     [Inject] protected NavigationManager NavManager { get; set; } = default!;
-    [Inject] protected IJSRuntime JSRuntime { get; set; } = default!;
 
     private bool _isInitialized;
     private IDisposable? registration;
 
-    protected EditContext? editContent;
     protected bool NavigateRegardless;
-    protected EditStateContext? editStateContext;
+    protected abstract IEditContext EditContext { get; }
 
-    protected bool IsModal => this.Modal != null;
-    protected bool IsDirty => editStateContext!.IsDirty;
+    protected bool IsDirty => this.EditContext?.IsDirty ?? false;
 
     public ComponentState LoadState { get; protected set; } = ComponentState.New;
 
-    public override Task SetParametersAsync(ParameterView parameters)
+    public async override Task SetParametersAsync(ParameterView parameters)
     {
-        parameters.SetParameterProperties(this);
+        // Call all the normal lifecycle
+        await base.SetParametersAsync(parameters);
+        // Then set up the Page locking stuff
         if (!_isInitialized)
+        {
             registration = NavManager.RegisterLocationChangingHandler(OnLocationChanging);
-
-        _isInitialized = true;
-        return base.SetParametersAsync(ParameterView.Empty);
+            if (this.EditContext is not null)
+                this.EditContext.EditStateUpdated += this.OnStateChanged;
+            
+            _isInitialized = true;
+        }
     }
 
-    protected void OnRecordChanged(object? sender, EventArgs e)
+    protected void OnStateChanged(object? sender, bool state)
         => this.InvokeAsync(StateHasChanged);
 
+
+    // This is the method called by the Navigation manager to check if navigation is allowed
     protected ValueTask OnLocationChanging(LocationChangingContext changingContext)
     {
         // Test to see if we need to block Navigation
@@ -52,26 +54,13 @@ public abstract class BaseEditForm : ComponentBase, IDisposable
         return ValueTask.CompletedTask;
     }
 
-    protected async void Exit()
-        => await DoExit();
+    protected void Exit()
+        => BaseExit();
 
-    protected async void ExitWithoutSaving()
+    protected void ExitWithoutSaving()
     {
         this.NavigateRegardless = true;
-        await DoExit();
-    }
-
-    protected virtual async Task DoExit()
-    {
-        // If we're in a modal context, call Close on the cascaded Modal object
-        if (this.Modal is not null)
-            this.Modal.Close(ModalResult.OK());
-        // If there's a delegate registered on the ExitAction, execute it. 
-        else if (ExitAction.HasDelegate)
-            await ExitAction.InvokeAsync();
-        // else fallback action is to navigate to root
-        else
-            this.BaseExit();
+        BaseExit();
     }
 
     protected virtual void BaseExit()

@@ -24,13 +24,13 @@ public class PropertyStateCollection : IEnumerable<FieldReference>
                 _states.Remove(state);
     }
 
-    public void ClearAllstates()
+    public void ClearAllStates()
         => _states.Clear();
 
     public bool GetState(FieldReference field)
         => _states.Any(item => item.Equals(field));
 
-    public bool HasStates(Guid? objectUid = null)
+    public bool HasState(Guid? objectUid = null)
         => objectUid is null
             ? _states.Any()
             : _states.Any(item => item.ObjectUid.Equals(objectUid));

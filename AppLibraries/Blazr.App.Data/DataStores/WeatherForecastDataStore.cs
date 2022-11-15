@@ -3,7 +3,6 @@
 /// License: Use And Donate
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
-
 namespace Blazr.App.Data;
 
 public class WeatherForecastDataStore
@@ -32,31 +31,31 @@ public class WeatherForecastDataStore
         }).ToList();
     }
 
-    public ValueTask<bool> UpdateForecastAsync(WeatherForecast weatherForecast)
+    public ValueTask<CommandResult> UpdateForecastAsync(WeatherForecast weatherForecast)
     {
         var record = _records.FirstOrDefault(item => item.Id == weatherForecast.Id);
         if (record is not null)
             _records.Remove(record);
         _records.Add(DboWeatherForecast.FromDto(weatherForecast));
         _records = _records.OrderBy(item => item.Date).ToList();
-        return ValueTask.FromResult(true);
+        return ValueTask.FromResult(CommandResult.Success());
     }
 
-    public ValueTask<bool> AddForecastAsync(WeatherForecast weatherForecast)
+    public ValueTask<CommandResult> AddForecastAsync(WeatherForecast weatherForecast)
     {
         var record = DboWeatherForecast.FromDto(weatherForecast);
         _records.Add(record);
         _records = _records.OrderBy(item => item.Date).ToList();
-        return ValueTask.FromResult(true);
+        return ValueTask.FromResult(CommandResult.Success());
     }
 
-    public ValueTask<WeatherForecast> GetForecastAsync(Guid Id)
+    public ValueTask<ItemQueryResult<WeatherForecast>> GetForecastAsync(Guid Id)
     {
         var record = _records.FirstOrDefault(item => item.Id == Id);
-        return ValueTask.FromResult(record?.ToDto() ?? new WeatherForecast());
+        return ValueTask.FromResult(ItemQueryResult<WeatherForecast>.Success(record?.ToDto() ?? new WeatherForecast()));
     }
 
-    public ValueTask<bool> DeleteForecastAsync(Guid Id)
+    public ValueTask<CommandResult> DeleteForecastAsync(Guid Id)
     {
         var deleted = false;
         var record = _records.FirstOrDefault(item => item.Id == Id);
@@ -65,15 +64,17 @@ public class WeatherForecastDataStore
             _records.Remove(record);
             deleted = true;
         }
-        return ValueTask.FromResult(deleted);
+        return deleted 
+            ? ValueTask.FromResult(CommandResult.Success()) 
+            : ValueTask.FromResult(CommandResult.Failure("No record found to delete"));
     }
 
-    public ValueTask<List<WeatherForecast>> GetWeatherForecastsAsync()
+    public ValueTask<ListQueryResult<WeatherForecast>> GetWeatherForecastsAsync()
     {
         var list = new List<WeatherForecast>();
         _records
             .ForEach(item => list.Add(item.ToDto()));
-        return ValueTask.FromResult(list);
+        return ValueTask.FromResult(ListQueryResult<WeatherForecast>.Success(list));
     }
 
     public void OverrideWeatherForecastDateSet(List<WeatherForecast> list)

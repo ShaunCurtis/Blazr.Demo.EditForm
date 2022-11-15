@@ -6,7 +6,7 @@
 
 namespace Blazr.App.Core;
 
-public class WeatherForecastViewService
+public class WeatherForecastEditService
 {
     private readonly IWeatherForecastDataBroker? weatherForecastDataBroker;
 
@@ -14,9 +14,9 @@ public class WeatherForecastViewService
 
     public WeatherForecast Record { get; private set; } = new WeatherForecast();
 
-    public DeoWeatherForecast EditModel { get; private set; } = new DeoWeatherForecast();
+    public readonly WeatherForecastEditContext EditContext = new WeatherForecastEditContext(new());
 
-    public WeatherForecastViewService(IWeatherForecastDataBroker weatherForecastDataBroker, WeatherForecastsViewService weatherForecastsViewService)
+    public WeatherForecastEditService(IWeatherForecastDataBroker weatherForecastDataBroker, WeatherForecastsViewService weatherForecastsViewService)
     {
         this.weatherForecastDataBroker = weatherForecastDataBroker!;
         this.weatherForecastsViewService = weatherForecastsViewService;
@@ -24,24 +24,26 @@ public class WeatherForecastViewService
 
     public async ValueTask GetForecastAsync(Guid Id)
     {
-        var result = await weatherForecastDataBroker!.GetForecastAsync(Id);
+       var result = await weatherForecastDataBroker!.GetForecastAsync(Id);
         if (result.IsSuccess)
             this.Record = result.Item ?? new();
 
-        this.EditModel.Populate(this.Record);
+        this.EditContext.Load(this.Record);
     }
 
-    public async ValueTask AddRecordAsync(WeatherForecast record)
+    public async ValueTask AddRecordAsync(WeatherForecast? record = null)
     {
-        this.Record = record;
+        this.Record = record ?? this.EditContext.AsNewRecord();
         var result = await weatherForecastDataBroker!.AddForecastAsync(this.Record);
+        this.EditContext.Save();
         weatherForecastsViewService.NotifyListChanged(this, EventArgs.Empty);
     }
 
     public async ValueTask UpdateRecordAsync(WeatherForecast? record = null)
     {
-        this.Record = record ?? EditModel.ToDco;
+        this.Record = record ?? this.EditContext.AsNewRecord();
         var result = await weatherForecastDataBroker!.UpdateForecastAsync(this.Record);
+        this.EditContext.Save();
         weatherForecastsViewService.NotifyListChanged(this, EventArgs.Empty);
     }
 

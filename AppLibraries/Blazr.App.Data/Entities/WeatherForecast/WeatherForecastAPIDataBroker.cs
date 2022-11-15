@@ -17,37 +17,37 @@ public class WeatherForecastAPIDataBroker : IWeatherForecastDataBroker
     public WeatherForecastAPIDataBroker(HttpClient httpClient)
         => this.httpClient = httpClient;
 
-    public async ValueTask<bool> AddForecastAsync(WeatherForecast record)
+    public async ValueTask<CommandResult> AddForecastAsync(WeatherForecast record)
     {
         var response = await this.httpClient.PostAsJsonAsync<WeatherForecast>($"/api/weatherforecast/add", record);
-        var result = await response.Content.ReadFromJsonAsync<bool>();
-        return result;
+        var result = await response.Content.ReadFromJsonAsync<CommandResult>();
+        return result ?? CommandResult.Failure("API problem");
     }
 
-    public async ValueTask<bool> UpdateForecastAsync(WeatherForecast record)
+    public async ValueTask<CommandResult> UpdateForecastAsync(WeatherForecast record)
     {
         var response = await this.httpClient.PostAsJsonAsync<WeatherForecast>($"/api/weatherforecast/update", record);
-        var result = await response.Content.ReadFromJsonAsync<bool>();
-        return result;
+        var result = await response.Content.ReadFromJsonAsync<CommandResult>();
+        return result ?? CommandResult.Failure("API problem");
     }
 
-    public async ValueTask<bool> DeleteForecastAsync(Guid Id)
+    public async ValueTask<CommandResult> DeleteForecastAsync(Guid Id)
     {
         var response = await this.httpClient.PostAsJsonAsync<Guid>($"/api/weatherforecast/delete", Id);
-        var result = await response.Content.ReadFromJsonAsync<bool>();
-        return result;
+        var result = await response.Content.ReadFromJsonAsync<CommandResult>();
+        return result ?? CommandResult.Failure("API problem");
     }
 
-    public async ValueTask<WeatherForecast> GetForecastAsync(Guid Id)
+    public async ValueTask<ItemQueryResult<WeatherForecast>> GetForecastAsync(Guid Id)
     {
         var response = await this.httpClient.PostAsJsonAsync<Guid>($"/api/weatherforecast/get", Id);
-        var result = await response.Content.ReadFromJsonAsync<WeatherForecast>();
-        return result ?? new WeatherForecast();
+        var result = await response.Content.ReadFromJsonAsync<ItemQueryResult<WeatherForecast>>();
+        return result ?? ItemQueryResult<WeatherForecast>.Failure("API problem");
     }
 
-    public async ValueTask<IEnumerable<WeatherForecast>> GetWeatherForecastsAsync()
+    public async ValueTask<ListQueryResult<WeatherForecast>> GetWeatherForecastsAsync()
     {
-        var list = await this.httpClient.GetFromJsonAsync<List<WeatherForecast>>($"/api/weatherforecast/list");
-        return list ?? Enumerable.Empty<WeatherForecast>();
+        var response = await this.httpClient.GetFromJsonAsync<ListQueryResult<WeatherForecast>>($"/api/weatherforecast/list");
+        return response ?? ListQueryResult<WeatherForecast>.Failure("API problem");
     }
 }

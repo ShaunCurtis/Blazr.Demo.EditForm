@@ -1,9 +1,10 @@
-﻿/// ============================================================
+﻿
+using System.Net.WebSockets;
+/// ============================================================
 /// Author: Shaun Curtis, Cold Elm Coders
 /// License: Use And Donate
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
-
 namespace Blazr.App.Core;
 
 public class WeatherForecastsViewService
@@ -19,7 +20,8 @@ public class WeatherForecastsViewService
     {
         this.Records = null;
         this.ListChanged?.Invoke(this.Records, EventArgs.Empty);
-        this.Records = await weatherForecastDataBroker!.GetWeatherForecastsAsync();
+        var result = await weatherForecastDataBroker!.GetWeatherForecastsAsync();
+        this.Records = result.Items;
         this.ListChanged?.Invoke(this.Records, EventArgs.Empty);
     }
 

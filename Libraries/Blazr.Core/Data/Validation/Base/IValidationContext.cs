@@ -8,7 +8,7 @@ namespace Blazr.Core.Validation;
 public interface IValidationContext
 {
     public event EventHandler<ValidationStateEventArgs>? ValidationStateUpdated;
-    public bool HasMessages(Guid? objerctUid = null, string? fieldName = null);
-    public IEnumerable<string> GetMessages(Guid? objerctUid = null, string? fieldName = null);
-    public ValidationResult Validate(Guid? objerctUid = null, string? fieldName = null);
+    public bool HasMessages(FieldReference field);
+    public IEnumerable<string> GetMessages(FieldReference field);
+    public ValidationResult Validate(FieldReference field);
 }

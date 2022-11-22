@@ -4,23 +4,15 @@
 /// If you use it, donate something to a charity somewhere
 /// ============================================================
 
-global using Microsoft.AspNetCore.Components;
-global using Microsoft.AspNetCore.Components.Forms;
-global using Microsoft.AspNetCore.Components.Rendering;
-global using Microsoft.AspNetCore.Components.Routing;
-global using Microsoft.AspNetCore.Components.Web;
-global using Microsoft.JSInterop;
-
-global using System.Diagnostics.CodeAnalysis;
-
-global using System.Collections;
-global using System.Linq.Expressions;
-global using System.Text;
-global using System.Diagnostics;
-
-global using Blazr.NavigationLocker;
 global using Blazr.Core;
 global using Blazr.Core.Edit;
 global using Blazr.Core.Validation;
+global using Microsoft.AspNetCore.Components;
+global using Microsoft.AspNetCore.Components.Rendering;
+global using Microsoft.AspNetCore.Components.Routing;
+global using Microsoft.AspNetCore.Components.Web;
+global using System.Collections;
+global using System.Diagnostics.CodeAnalysis;
+global using System.Text;
 
 namespace Blazr.UI;

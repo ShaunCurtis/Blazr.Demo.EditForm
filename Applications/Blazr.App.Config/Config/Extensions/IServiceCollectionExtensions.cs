@@ -15,8 +15,6 @@ namespace Blazr.App.Config
             services.AddScoped<WeatherForecastsViewService>();
             services.AddScoped<WeatherForecastViewService>();
             services.AddTransient<WeatherForecastEditService>();
-            //TODO - No longer needed
-            //services.AddBlazrNavigationLockerServerServices();
 
         }
 
@@ -25,7 +23,6 @@ namespace Blazr.App.Config
             services.AddScoped<IWeatherForecastDataBroker, WeatherForecastAPIDataBroker>();
             services.AddScoped<WeatherForecastViewService>();
             services.AddScoped<WeatherForecastsViewService>();
-            services.AddBlazrNavigationLockerWASMServices();
         }
 
         public static void AddAppWASMServerServices(this IServiceCollection services)

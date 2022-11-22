@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Blazr.Core\Blazr.Core.csproj" />
-    <ProjectReference Include="..\Blazr.NavigationLocker\Blazr.NavigationLocker.csproj" />
   </ItemGroup>
 
 </Project>

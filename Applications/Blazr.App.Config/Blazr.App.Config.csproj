@@ -14,7 +14,6 @@
 	  <ProjectReference Include="..\..\AppLibraries\Blazr.App.Core\Blazr.App.Core.csproj" />
 	  <ProjectReference Include="..\..\AppLibraries\Blazr.App.Data\Blazr.App.Data.csproj" />
 	  <ProjectReference Include="..\..\AppLibraries\Blazr.App.UI\Blazr.App.UI.csproj" />
-	  <ProjectReference Include="..\..\Libraries\Blazr.NavigationLocker\Blazr.NavigationLocker.csproj" />
 	</ItemGroup>
 
 </Project>

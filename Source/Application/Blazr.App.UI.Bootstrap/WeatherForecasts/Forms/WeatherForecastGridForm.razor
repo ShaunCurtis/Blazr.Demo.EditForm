@@ -1,0 +1,61 @@
+﻿@namespace Blazr.App.UI.Bootstrap
+
+@inject WeatherForecastQuickGridPresenter Presenter
+﻿
+
+<div class="container">
+    <div class="row mb-2">
+        <div class="col h2">Weather Forecasts</div>
+        <div class="col-auto">
+            <button class="btn btn-sm btn-primary" @onclick="@OnAddAsync">
+                New Weather Forecast
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="grid" tabindex="-1">
+            <QuickGrid TGridItem="WeatherForecast" ItemsProvider="this.Presenter.GetItemsAsync<WeatherForecast>" Pagination="_pagination">
+                <PropertyColumn Title="Id" Property="@(c => c!.Id.Value.ToDisplayId())" Align=Align.Start />
+                <PropertyColumn Title="Date" Property="@(c => c!.Date)" Format="dd-MMM-yy" Sortable="true" IsDefaultSortColumn InitialSortDirection="SortDirection.Ascending" Align=Align.Start />
+                <PropertyColumn Title="Temp &deg; C" Sortable="true" Format="N0" Property="@(c => c!.Temperature.Celcius)" Align=Align.End />
+                <PropertyColumn Title="Temp &deg; F" Sortable="true" Format="N0" Property="@(c => c!.Temperature.Fahrenheit)" Align=Align.End />
+                <PropertyColumn Title="Summary" Sortable="true" Property="@(c => c!.Summary)" Align=Align.Center />
+                <TemplateColumn Title="Actions" Align="@Align.End">
+                    <button class="btn btn-sm btn-primary" @onclick="() => OnEditAsync(context.Id)">Edit</button>
+                </TemplateColumn>
+            </QuickGrid>
+        </div>
+
+        <Paginator State="@_pagination" />
+    </div>
+</div>
+
+<ModalControl Options="_modalOptions" @bind-Show="_showModal" />
+
+@code {
+    private PaginationState _pagination = new PaginationState { ItemsPerPage = 10 };
+    private ModalOptions _modalOptions = new();
+    private bool _showModal;
+
+    private Task OnEditAsync(WeatherForecastId id)
+    {
+        _modalOptions = new ModalOptions() { Component = typeof(WeatherForecastEditForm), Parameters = this.GetParameters(id) };
+        _showModal = true;
+        return Task.CompletedTask;
+    }
+
+    private Task OnAddAsync()
+    {
+        _modalOptions = new ModalOptions() { Size= ModalSizes.Large, Component = typeof(WeatherForecastEditForm), Parameters = this.GetParameters() };
+        _showModal = true;
+        return Task.CompletedTask;
+    }
+
+    private Dictionary<string, object> GetParameters(WeatherForecastId? id = null)
+    {
+        return new Dictionary<string, object>() { { "WeatherForecastId", id ?? new WeatherForecastId(Guid.Empty) } };
+    }
+
+}

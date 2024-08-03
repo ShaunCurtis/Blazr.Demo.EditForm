@@ -13,5 +13,6 @@ public static class PresentationServices
     public static void AddAppPresentationServices(this IServiceCollection services)
     {
         services.AddScoped<WeatherForecastQuickGridPresenter>();
+        services.AddScoped<WeatherForecastEditPresenter>(); 
     }
 }

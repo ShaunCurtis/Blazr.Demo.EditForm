@@ -16,7 +16,7 @@
 <div class="row">
     <div class="col-12">
         <div class="grid" tabindex="-1">
-            <QuickGrid TGridItem="WeatherForecast" ItemsProvider="this.Presenter.GetItemsAsync<WeatherForecast>" Pagination="_pagination">
+            <QuickGrid TGridItem="WeatherForecast" ItemsProvider="this.Presenter.GetItemsAsync" Pagination="_pagination">
                 <PropertyColumn Title="Id" Property="@(c => c!.Id.Value.ToDisplayId())" Align=Align.Start />
                 <PropertyColumn Title="Date" Property="@(c => c!.Date)" Format="dd-MMM-yy" Sortable="true" IsDefaultSortColumn InitialSortDirection="SortDirection.Ascending" Align=Align.Start />
                 <PropertyColumn Title="Temp &deg; C" Sortable="true" Format="N0" Property="@(c => c!.Temperature.Celcius)" Align=Align.End />

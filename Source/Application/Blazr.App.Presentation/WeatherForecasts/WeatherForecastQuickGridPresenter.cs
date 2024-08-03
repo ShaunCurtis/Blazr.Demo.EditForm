@@ -18,9 +18,11 @@ public class WeatherForecastQuickGridPresenter
         _dataBroker = dataBroker;
     }
 
-    public async ValueTask<GridItemsProviderResult<WeatherForecast>> GetItemsAsync<WeatherForecast>(GridItemsProviderRequest<WeatherForecast> request)
+    public async ValueTask<GridItemsProviderResult<WeatherForecast>> GetItemsAsync(GridItemsProviderRequest<WeatherForecast> request)
     {
-        var result = await _dataBroker.GetItemsAsync(new ListQueryRequest(request.StartIndex, request.Count ?? 1000 ));
-        return new() { Items = (ICollection<WeatherForecast>)result.Items, TotalItemCount= result.TotalCount };
+        await Task.Yield();
+
+        var result = await _dataBroker.GetItemsAsync(new ListQueryRequest(request.StartIndex, request.Count ?? 1000));
+        return new() { Items = result.Items.ToList(), TotalItemCount = result.TotalCount };
     }
 }

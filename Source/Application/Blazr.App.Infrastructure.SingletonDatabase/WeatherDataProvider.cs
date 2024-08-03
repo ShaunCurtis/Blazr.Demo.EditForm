@@ -5,14 +5,51 @@
 /// ============================================================
 
 using Blazr.App.Core;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Blazr.App.Infrastructure.SingletonDatabase;
 
 public class WeatherDataProvider
 {
-    public List<WeatherForecast> WeatherForecasts => _weatherForecasts.OrderBy(item => item.Date).ToList();
+    public IEnumerable<WeatherForecast> WeatherForecasts => _weatherForecasts.OrderBy(item => item.Date);
 
     private List<WeatherForecast> _weatherForecasts;
+
+    public async ValueTask<bool> AddWeatherForecastAsync(WeatherForecast record)
+    {
+        await Task.Yield();
+        var exists = _weatherForecasts.Any(item => item.Id.Equals(record.Id));
+        if (!exists)
+            _weatherForecasts.Add(record);
+
+        return !exists;
+    }
+
+    public async ValueTask<bool> DeleteWeatherForecastAsync(WeatherForecast record)
+    {
+        await Task.Yield();
+
+        var existingRecord = _weatherForecasts.SingleOrDefault(item => item.Id.Equals(record.Id));
+
+        if (existingRecord is not null)
+            _weatherForecasts.Remove(existingRecord);
+
+        return existingRecord is not null;
+    }
+
+    public async ValueTask<bool> UpdateWeatherForecastAsync(WeatherForecast record)
+    {
+        await Task.Yield();
+
+        var existingRecord = _weatherForecasts.SingleOrDefault(item => item.Id.Equals(record.Id));
+        if (existingRecord is not null)
+        {
+            _weatherForecasts.Remove(existingRecord);
+            _weatherForecasts.Add(record);
+        }
+
+        return existingRecord is not null ;
+    }
 
     public WeatherDataProvider()
     {

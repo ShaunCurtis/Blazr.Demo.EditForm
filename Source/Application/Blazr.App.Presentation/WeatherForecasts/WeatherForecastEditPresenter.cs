@@ -5,7 +5,7 @@
 /// ============================================================
 using Blazr.App.Core;
 using Microsoft.AspNetCore.Components.Forms;
-
+using Blazr.EditStateTracker;
 namespace Blazr.App.Presentation;
 
 public class WeatherForecastEditPresenter
@@ -54,7 +54,15 @@ public class WeatherForecastEditPresenter
     
     public async Task SaveItemAsync()
     {
-        // Check for dirty record
+        // Get the EditStateTracker store from the EditContext
+        var store = this.EditContext?.GetStateStore();
+
+        // Check for a clean record.
+        if (!store?.IsDirty() ?? false)
+        {
+            this.LastResult = new DataResult(false, "There are no changes to save");
+            return;
+        }
 
         var record = RecordEditContext.ApplyMutation();
 

@@ -46,23 +46,16 @@ public class WeatherDataBroker : IDataBroker<WeatherForecastId, WeatherForecast>
         switch (request)
         {
             case AddCommandRequest<WeatherForecast>:
-                _weatherDataProvider.WeatherForecasts.Add(request.item);
-                return new AddCommandResult(true, request.item.Id);
+                var addResult = await _weatherDataProvider.AddWeatherForecastAsync(request.item);
+                return new AddCommandResult(addResult, request.item.Id, addResult ? "Record already exists so not added.": null);
 
             case DeleteCommandRequest<WeatherForecast>:
-                var deleteRecord = _weatherDataProvider.WeatherForecasts.SingleOrDefault(item => item.Id.Equals(request.item.Id));
-                if (deleteRecord is not null)
-                    _weatherDataProvider.WeatherForecasts.Remove(deleteRecord);
-                return new CommandResult(deleteRecord is not null);
+                var deleteResult = await _weatherDataProvider.DeleteWeatherForecastAsync(request.item);
+                return new CommandResult(deleteResult, deleteResult ? "Record Doesn't exist." : null);
 
             case UpdateCommandRequest<WeatherForecast>:
-                var updateRecord = _weatherDataProvider.WeatherForecasts.SingleOrDefault(item => item.Id.Equals(request.item.Id));
-                if (updateRecord is not null)
-                {
-                    _weatherDataProvider.WeatherForecasts.Remove(updateRecord);
-                    _weatherDataProvider.WeatherForecasts.Add(request.item);
-                }
-                return new CommandResult(updateRecord is not null);
+                var updateResult = await _weatherDataProvider.UpdateWeatherForecastAsync(request.item);
+                return new CommandResult(updateResult, updateResult ? "Record doesn't exist so can't be updated." : null);
 
             default:
                 throw new ArgumentException("Unknown type of command request", nameof(request));

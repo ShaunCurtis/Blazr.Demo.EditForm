@@ -1,1 +1,1 @@
-﻿global using Blazr.EditStateTracker
+﻿global using Blazr.EditStateTracker;

@@ -14,6 +14,7 @@ public class WeatherForecastEditPresenter
 
     public EditContext? EditContext { get; private set; }
     public WeatherForecastEditContext RecordEditContext { get; private set; }
+    public IDataResult LastResult { get; private set; }
     public bool IsNew { get; private set; }
 
     public bool IsInvalid => this.EditContext?.GetValidationMessages().Any() ?? false;
@@ -22,6 +23,7 @@ public class WeatherForecastEditPresenter
     {
         _dataBroker = dataBroker;
         this.RecordEditContext = new(new());
+        this.LastResult = new DataResult(true);
     }
 
     public async Task LoadAsync(WeatherForecastId id)
@@ -56,24 +58,10 @@ public class WeatherForecastEditPresenter
 
         var record = RecordEditContext.ApplyMutation();
 
-        if (IsNew)
-        {
-            var newCommand = new AddCommandRequest<WeatherForecast>(record);
-            var newResult = await _dataBroker.ExecuteCommandAsync(newCommand);
-        }
+         ICommandRequest<WeatherForecast> command = IsNew ?
+             new AddCommandRequest<WeatherForecast>(record)
+            : new UpdateCommandRequest<WeatherForecast>(record); 
 
-        var command = new CommandRequest<DmoWeatherForecast>(record, this.IsNew ? CommandState.Add : CommandState.Update);
-        var result = await _dataBroker.ExecuteCommandAsync<DmoWeatherForecast>(command);
-
-        if (result.Successful)
-        {
-            var outcome = this.IsNew ? "added" : "updated";
-            _toastService.ShowSuccess($"The Weather Forecast was {outcome}.");
-        }
-        else
-            _toastService.ShowError(result.Message ?? "The Weather Forecast could not be saved.");
-
-        this.LastDataResult = result;
-        return result;
+            this.LastResult = await _dataBroker.ExecuteCommandAsync(command);
     }
 }

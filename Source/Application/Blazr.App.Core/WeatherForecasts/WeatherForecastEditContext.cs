@@ -9,9 +9,12 @@ namespace Blazr.App.Core;
 public class WeatherForecastEditContext
 {
     public WeatherForecast BaseRecord { get; private set; }
-    public DateOnly Date { get; set; }
-    public Temperature Temperature { get; set; }
-    public string? Summary { get; set; }
+
+    // These are the Properties that can be edited
+    // They will be tracked in the EditContext by the EditStateTracker
+    [TrackState] public DateOnly Date { get; set; }
+    [TrackState] public Temperature Temperature { get; set; }
+    [TrackState] public string? Summary { get; set; }
 
     public WeatherForecastEditContext(WeatherForecast record)
     {

@@ -20,7 +20,7 @@ public class WeatherForecastEditContextValidator : AbstractValidator<WeatherFore
             .WithMessage("Date must be in the future")
             .WithState(p => p);
 
-        this.RuleFor(p => p.Temperature.Value)
+        this.RuleFor(p => p.Temperature)
             .GreaterThanOrEqualTo(-60)
             .LessThanOrEqualTo(70)
             .WithState(p => p);

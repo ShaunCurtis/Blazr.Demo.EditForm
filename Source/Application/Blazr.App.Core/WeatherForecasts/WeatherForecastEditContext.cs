@@ -13,7 +13,7 @@ public class WeatherForecastEditContext
     // These are the Properties that can be edited
     // They will be tracked in the EditContext by the EditStateTracker
     [TrackState] public DateOnly Date { get; set; }
-    [TrackState] public Temperature Temperature { get; set; }
+    [TrackState] public int Temperature { get; set; }
     [TrackState] public string? Summary { get; set; }
 
     public WeatherForecastEditContext(WeatherForecast record)
@@ -21,14 +21,14 @@ public class WeatherForecastEditContext
         this.BaseRecord = record;
         this.Date = record.Date;
         this.Summary = record.Summary;
-        this.Temperature = record.Temperature;
+        this.Temperature = record.Temperature.Value;
     }
 
     public WeatherForecast ApplyMutation()
     {
         BaseRecord.Date = this.Date;
         BaseRecord.Summary = this.Summary;
-        BaseRecord.Temperature = this.Temperature;
+        BaseRecord.Temperature = new(this.Temperature);
         return BaseRecord;
     }
 }

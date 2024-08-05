@@ -19,6 +19,9 @@ public class WeatherForecastEditPresenter
 
     public bool IsInvalid => this.EditContext?.GetValidationMessages().Any() ?? false;
 
+    private WeatherForecast NewWeatherForecast
+    => new() { Date = DateOnly.FromDateTime(DateTime.Now.AddDays(1)), Id = new(Guid.NewGuid()), Summary = string.Empty, Temperature = new(0) };
+
     public WeatherForecastEditPresenter(IDataBroker<WeatherForecastId, WeatherForecast> dataBroker)
     {
         _dataBroker = dataBroker;
@@ -48,9 +51,6 @@ public class WeatherForecastEditPresenter
         this.EditContext = new(this.RecordEditContext);
         this.IsNew = true;
     }
-
-    private WeatherForecast NewWeatherForecast 
-        => new() { Date = DateOnly.FromDateTime(DateTime.Now.AddDays(1)), Id = new(Guid.NewGuid()), Summary = string.Empty, Temperature = new(0) };
     
     public async Task SaveItemAsync()
     {

@@ -1,6 +1,4 @@
-﻿@* ﻿@implements IDisposable *@
-
-@namespace Blazr.App.UI.Bootstrap
+﻿@namespace Blazr.App.UI.Bootstrap
 @implements IDisposable
 @inject WeatherForecastEditPresenter Presenter
 
@@ -12,9 +10,9 @@
     {
         <EditForm EditContext="Presenter.EditContext">
 
-            <BlazrEditStateTracker LockNavigation="true" />
+            <BlazrEditStateTracker />
             <BlazrFluentValidator TRecord="WeatherForecastEditContext"
-                            TValidator="WeatherForecastEditContextValidator" />
+                                  TValidator="WeatherForecastEditContextValidator" />
 
             <div class="row mb-2">
 
@@ -54,9 +52,18 @@
 
             <div class="row mb-2">
                 <div class="col-12 text-end ">
-                    <button hidden="@_isDirty" class="btn btn-dark" @onclick="this.OnExitAsync">Exit</button>
-                    <button hidden="@_isClean" class="btn btn-danger" @onclick="this.OnExitAsync">Exit without Save</button>
-                    <button disabled="@_isClean" class="btn btn-primary" @onclick="this.OnSaveAsync">@(this.Presenter.IsNew ? "Add" : "Save")</button>
+                    <button class="btn btn-dark" hidden="@_isDirty"
+                            @onclick="this.OnExitAsync">
+                        Exit
+                    </button>
+                    <button class="btn btn-danger" hidden="@_isClean"
+                            @onclick="this.OnExitAsync">
+                        Exit without Save
+                    </button>
+                    <button class="btn btn-primary" disabled="@_isSaveButtonDisabled"
+                            @onclick="this.OnSaveAsync">
+                        @_saveButtonText
+                    </button>
                 </div>
             </div>
 
@@ -64,25 +71,29 @@
     }
 </div>
 
+@if(!this.Presenter.LastResult.Success)
+{
+    <div class="alert alert-danger">_@this.Presenter.LastResult.Message</div>
+}
+
+<NavigationLock OnBeforeInternalNavigation="this.OnLocationChanging" ConfirmExternalNavigation="_isDirty"  />
+
 @code {
     [CascadingParameter] private Action? Close { get; set; }
     [Parameter] public WeatherForecastId WeatherForecastId { get; set; } = default!;
 
     private bool _isDirty;
     private bool _isClean => !_isDirty;
+    private bool _isSaveButtonDisabled => _isClean && !this.Presenter.IsNew;
     private bool _stateStoreAttached;
-    private BlazrEditStateStore? _store;
-    public readonly Guid ComponentId = Guid.NewGuid();
+    private string _saveButtonText => this.Presenter.IsNew ? "Add" : "Save";
     private WeatherForecastEditContext _record => this.Presenter.RecordEditContext;
+
+    private BlazrEditStateStore? _store;
 
     protected async override Task OnInitializedAsync()
     {
         await this.Presenter.LoadAsync(this.WeatherForecastId);
-    }
-
-    protected override void OnParametersSet()
-    {
-        _isDirty = this.Presenter.EditContext?.GetEditState() ?? false;
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -101,6 +112,7 @@
 
     private async Task OnSaveAsync()
     {
+        // Validate the model data
         if (!this.Presenter.EditContext?.Validate() ?? false)
             return;
 
@@ -118,13 +130,20 @@
 
     protected void OnEditStateMayHaveChanged(object? sender, EventArgs e)
     {
-        _isDirty = this.Presenter.EditContext?.GetEditState() ?? false;
+        var isDirty = this.Presenter.EditContext?.GetEditState() ?? false;
+
+        // If no state change exit
+        if (isDirty == _isDirty)
+            return;
+
+        _isDirty = isDirty;
         this.StateHasChanged();
     }
 
-    protected void OnValidationStateMayHaveChanged(object? sender, ValidationStateChangedEventArgs e)
+    private void OnLocationChanging(LocationChangingContext context)
     {
-        this.StateHasChanged();
+        if (_isDirty)
+            context.PreventNavigation();
     }
 
     public void Dispose()
@@ -132,5 +151,4 @@
         if (_store is not null)
             _store.StoreUpdated -= OnEditStateMayHaveChanged;
     }
-
 }

@@ -1,23 +1,63 @@
-# Blazr.Demo.EditForm
+# Building Blazor Edit Forms
 
-This Repo contains the demo solution for Form locking and Navigation Locking.
+A set of solutions for building edit forms in Blazor.
 
-If you are Net7.0 use the Net7 branch.  The documentation is a work in progress at the moment but the solution demonstrates using the new NavigationManager features and NavigationLock component.  The Net6 and master branches are the old Net6 code version.
+Edit forms offer some of the greatest challenges in UI/UX design.  Blazor, along with every other web based application, has fundimental issues in the standard framework that you need to code around.
 
-If you used the old Net6.0 solution, and want to upgrade to Net7, I suggest you rename the solution's `NavigationLock` to `BlazrNavigationLock` before ungrading to fix component name conflicts you will get.  The MS Blazor Net7 solution uses patterns from the solution and the same component name!  
+In this article I'll look at the following challenges:
 
-The pre Net7.0 issue is on the official aspnetcore github site here.
+1. Prevent navigation when the edit form is dirty.
 
-[[Blazor] Add support for confirming navigations #40149](https://github.com/dotnet/aspnetcore/issues/40149)
+2. Manage edits and only apply them to the underlying objects/data pipeline on the save event.
 
-The detailed Net6 articles can be found here:
+3. Track the edit state:  has the editable data changed.
 
-[Building Edit forms](https://shauncurtis.github.io/articles/Building-Edit-Forms.html)
+4. Validaate the data.
 
-The Net 6 demo version of this code can be seen here:
+## Repo
 
-[Blazr.Demo Azure Site](https://blazr-demo.azurewebsites.net/)
+The repo for this aeticle is at https://github.com/ShaunCurtis/Blazr.Demo.EditForm.
 
-Updates:
- - 12-Sep-2022 - Added Support for Hot Reload
- - 14-Nov-2022 - work on the Net7 version and Docs update
+The Demo Site is at https://blazr-editforms.azurewebsites.net/
+
+## Solution Design and Architecture
+
+The solution is built on Clean Design principles. Each domain has it's own project with strictly defined dependancies.
+
+The projects are split into five groups:
+
+1. *Libraries* are projects that may be used across multiple solutions.  These would normally be packaged once stable.
+
+1. *Application* are solution specific libraries consistent with Clean Design.
+
+1. *Deployments* are application deployments.  There may be WASM, Maui and Server deployments.
+
+1. *Tests* are projects containiing application test code.
+
+1. *Aspire* are the Microsoft Aspire framework projects.  `AppHost` is normally the solution's *startup* project.
+
+## Data Objects
+
+The *WeatherForecast* class looks like this:
+
+```csharp
+public class WeatherForecast
+{
+    public WeatherForecastId Id { get; set; }
+    public DateOnly Date { get; set; }
+    public Temperature Temperature { get; set; }
+    public string? Summary { get; set; }
+}
+```
+
+It has a strongly typed ID `WeatherForecastId` which looks like this:
+
+```csharp
+public readonly struct WeatherForecastId
+{
+    public WeatherForecastId(Guid id)
+        => this.Value = id;
+
+    public Guid Value { get; init; }
+}
+```
